@@ -1,5 +1,5 @@
 ﻿using SpeedRun.Models.Models;
-using SpeedRun.RepositoryGeneric;
+using SpeedRun.RepositoryGeneric.Repository;
 
 namespace SpeedRun.Repository.Repostories
 {

@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace SpeedRun.Models.Models
 {
-    public class SpeedRunDbContext : DbContext
+    public class SpeedRunDbContext : IdentityDbContext<User,Role,Guid>
     {
         public SpeedRunDbContext(DbContextOptions<SpeedRunDbContext> options)
             : base(options)

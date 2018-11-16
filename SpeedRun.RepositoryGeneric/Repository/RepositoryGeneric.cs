@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SpeedRun.RepositoryGeneric.Interface;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using SpeedRun.RepositoryGeneric.Interface;
 
-namespace SpeedRun.RepositoryGeneric
+namespace SpeedRun.RepositoryGeneric.Repository
 {
     public class RepositoryGeneric<T> : IRepositoryGeneric<T> where T : class
     {
