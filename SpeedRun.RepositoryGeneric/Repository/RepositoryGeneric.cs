@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using SpeedRun.RepositoryGeneric.Interface;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace SpeedRun.RepositoryGeneric.Repository
 {
@@ -14,10 +16,11 @@ namespace SpeedRun.RepositoryGeneric.Repository
             context = dbContextType;
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
             var dbSet = context.Set<T>();
-            var query = dbSet.AsQueryable();
+            if (predicate == null) return dbSet.AsQueryable().ToList();
+            var query = dbSet.Where(predicate).AsQueryable();
             return query.ToList();
         }
 

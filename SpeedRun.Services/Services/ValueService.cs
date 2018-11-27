@@ -1,7 +1,6 @@
-﻿using SpeedRun.ServiceGeneric;
-using System;
-using SpeedRun.Models;
+﻿using SpeedRun.Models;
 using SpeedRun.RepositoryGeneric.Interface;
+using SpeedRun.ServiceGeneric;
 using SpeedRun.Services.Interfaces;
 
 namespace SpeedRun.Services

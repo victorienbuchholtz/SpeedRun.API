@@ -15,7 +15,7 @@ namespace SpeedRun.ServiceGeneric
 
         public List<T> GetAll()
         {
-            return Repo.GetAll();
+            return Repo.GetAll(null);
         }
 
         public T Add(T obj)

@@ -2,11 +2,11 @@
 using SpeedRun.Models.Models;
 using SpeedRun.RepositoryGeneric.Repository;
 
-namespace SpeedRun.Repository.Repostories
+namespace SpeedRun.Repository.Repositories
 {
     public class SpeedRunRepository<T> : RepositoryGeneric<T> where T : class
     {
-        public SpeedRunRepository(DbContext context) : base(context)
+        public SpeedRunRepository(SpeedRunDbContext context) : base(context)
         {
         }
     }
