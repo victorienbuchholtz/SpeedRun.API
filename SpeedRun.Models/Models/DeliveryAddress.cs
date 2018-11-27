@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpeedRun.Models.Models
 {
@@ -14,5 +15,6 @@ namespace SpeedRun.Models.Models
         public string PhoneNumber { get; set; }
 
         public User User { get; set; }
+        public ICollection<Order> Orders { get; set; }
     }
 }
