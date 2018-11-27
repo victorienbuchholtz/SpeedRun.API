@@ -12,6 +12,8 @@ namespace SpeedRun.Models.Models
         public string Address { get; set; }
         public string City { get; set; }
 
+        public string AvatarUrl { get; set; }
+
         public ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
         public ICollection<Order> Orders { get; set; }
     }
