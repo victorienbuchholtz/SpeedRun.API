@@ -20,6 +20,12 @@ namespace SpeedRun.Models.Models
             modelBuilder.Entity<Value>()
                 .HasKey(v => v.Id);
 
+            modelBuilder.Entity<Value>(e => e.Property(m => m.Name).HasMaxLength(127));
+
+            modelBuilder.Entity<Value>()
+                .HasIndex(v => v.Name)
+                .IsUnique();
+
             //modelBuilder.Entity<User>()
             //    .HasMany(e => e.DeliveryAddresses)
             //    .WithOne()
