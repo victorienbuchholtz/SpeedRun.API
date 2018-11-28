@@ -1,16 +1,14 @@
-﻿using SpeedRun.Models;
+﻿using SpeedRun.Models.Models;
 using SpeedRun.RepositoryGeneric.Interface;
 using SpeedRun.ServiceGeneric;
 using SpeedRun.Services.Interfaces;
 
 namespace SpeedRun.Services.Services
 {
-    public class ValueService : ServiceGeneric<Value>, IValueService
+    public class ProductService : ServiceGeneric<Product>, IProductService
     {
-        public ValueService(IRepositoryGeneric<Value> repo) : base(repo)
+        public ProductService(IRepositoryGeneric<Product> repo) : base(repo)
         {
         }
-
-        
     }
 }
