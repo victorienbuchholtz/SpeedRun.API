@@ -24,6 +24,14 @@ namespace SpeedRun.RepositoryGeneric.Repository
             return query.ToList();
         }
 
+        public T Get(Expression<Func<T, bool>> predicate = null)
+        {
+            var dbSet = context.Set<T>();
+            if (predicate == null) return dbSet.AsQueryable().FirstOrDefault();
+            var query = dbSet.Where(predicate).AsQueryable().FirstOrDefault();
+            return query;
+        }
+
         public T Add(T obj)
         {
             context.Attach(obj);

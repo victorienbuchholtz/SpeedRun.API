@@ -7,6 +7,7 @@ namespace SpeedRun.RepositoryGeneric.Interface
     public interface IRepositoryGeneric <T> where T : class
     {
         List<T> GetAll(Expression<Func<T, bool>> predicate);
+        T Get(Expression<Func<T, bool>> predicate = null);
         T Add(T obj);
     }
 }

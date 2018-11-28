@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using SpeedRun.RepositoryGeneric.Interface;
 using SpeedRun.ServiceGeneric.Interface;
 
@@ -13,9 +15,14 @@ namespace SpeedRun.ServiceGeneric
             this.Repo = repo;
         }
 
-        public List<T> GetAll()
+        public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
-            return Repo.GetAll(null);
+            return Repo.GetAll(predicate);
+        }
+
+        public T Get(Expression<Func<T, bool>> predicate = null)
+        {
+            return Repo.Get(predicate);
         }
 
         public T Add(T obj)
