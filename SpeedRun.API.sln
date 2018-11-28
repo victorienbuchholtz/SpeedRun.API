@@ -5,23 +5,25 @@ VisualStudioVersion = 15.0.28010.2041
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.API", "SpeedRun.API\SpeedRun.API.csproj", "{7F830FE5-4356-4E70-A864-57F49CBAB548}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.Models", "SpeedRun.Models\SpeedRun.Models.csproj", "{2C4D1DFD-9BD6-4DC8-A280-9143DB5C7524}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Models", "SpeedRun.Models\SpeedRun.Models.csproj", "{2C4D1DFD-9BD6-4DC8-A280-9143DB5C7524}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.RepositoryGeneric", "SpeedRun.RepositoryGeneric\SpeedRun.RepositoryGeneric.csproj", "{B3BE26E0-7B7F-4345-ADE2-C4E10158C55E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.RepositoryGeneric", "SpeedRun.RepositoryGeneric\SpeedRun.RepositoryGeneric.csproj", "{B3BE26E0-7B7F-4345-ADE2-C4E10158C55E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.RepositoryGeneric.Tests", "SpeedRun.RepositoryGeneric.Tests\SpeedRun.RepositoryGeneric.Tests.csproj", "{D941ECCE-818E-419E-BEDE-C32FC6597C76}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.RepositoryGeneric.Tests", "SpeedRun.RepositoryGeneric.Tests\SpeedRun.RepositoryGeneric.Tests.csproj", "{D941ECCE-818E-419E-BEDE-C32FC6597C76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.ServiceGeneric", "SpeedRun.ServiceGeneric\SpeedRun.ServiceGeneric.csproj", "{F99CC0F7-85DB-4E19-9186-C372C5695463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.ServiceGeneric", "SpeedRun.ServiceGeneric\SpeedRun.ServiceGeneric.csproj", "{F99CC0F7-85DB-4E19-9186-C372C5695463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.ServiceGeneric.Tests", "SpeedRun.ServiceGeneric.Tests\SpeedRun.ServiceGeneric.Tests.csproj", "{D40C7E48-2685-4F03-94BE-56C8D7B7351A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.ServiceGeneric.Tests", "SpeedRun.ServiceGeneric.Tests\SpeedRun.ServiceGeneric.Tests.csproj", "{D40C7E48-2685-4F03-94BE-56C8D7B7351A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.ControllerGeneric", "SpeedRun.ControllerGeneric\SpeedRun.ControllerGeneric.csproj", "{716A1E1B-0297-4E2A-8131-B7DFBEB9D43D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.ControllerGeneric", "SpeedRun.ControllerGeneric\SpeedRun.ControllerGeneric.csproj", "{716A1E1B-0297-4E2A-8131-B7DFBEB9D43D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.ControllerGeneric.Tests", "SpeedRun.ControllerGeneric.Tests\SpeedRun.ControllerGeneric.Tests.csproj", "{DA582F0E-9523-4999-AF34-8C71A8F893D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.ControllerGeneric.Tests", "SpeedRun.ControllerGeneric.Tests\SpeedRun.ControllerGeneric.Tests.csproj", "{DA582F0E-9523-4999-AF34-8C71A8F893D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.Services", "SpeedRun.Services\SpeedRun.Services.csproj", "{02556874-3E8E-44B4-B64C-7518585F956A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Services", "SpeedRun.Services\SpeedRun.Services.csproj", "{02556874-3E8E-44B4-B64C-7518585F956A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.Repository", "SpeedRun.Repository\SpeedRun.Repository.csproj", "{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Repository", "SpeedRun.Repository\SpeedRun.Repository.csproj", "{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.Services.Tests", "SpeedRun.Services.Tests\SpeedRun.Services.Tests.csproj", "{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
