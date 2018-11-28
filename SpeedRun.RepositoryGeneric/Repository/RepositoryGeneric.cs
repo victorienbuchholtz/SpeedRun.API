@@ -39,5 +39,20 @@ namespace SpeedRun.RepositoryGeneric.Repository
             context.SaveChanges();
             return obj;
         }
+
+        public T Update(T obj)
+        {
+            context.Attach(obj);
+            context.Set<T>().Update(obj);
+            context.SaveChanges();
+            return obj;
+        }
+
+        public void Delete(T obj)
+        {
+            context.Attach(obj);
+            context.Set<T>().Remove(obj);
+            context.SaveChanges();
+        }
     }
 }

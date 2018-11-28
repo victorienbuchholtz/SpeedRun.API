@@ -29,5 +29,15 @@ namespace SpeedRun.ServiceGeneric
         {
             return Repo.Add(obj);
         }
+
+        public T Update(T obj)
+        {
+            return Repo.Update(obj);
+        }
+
+        public void Delete(T obj)
+        {
+            Repo.Delete(obj);
+        }
     }
 }
