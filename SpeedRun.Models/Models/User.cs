@@ -14,7 +14,7 @@ namespace SpeedRun.Models.Models
 
         public string AvatarUrl { get; set; }
 
-        public ICollection<DeliveryAddress> DeliveryAddresses { get; set; }
-        public ICollection<Order> Orders { get; set; }
+        public List<DeliveryAddress> DeliveryAddresses { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }

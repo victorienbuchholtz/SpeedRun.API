@@ -53,7 +53,6 @@ namespace SpeedRun.Models.Models
                 .HasOne(e => e.User)
                 .WithMany(e => e.Orders);
 
-
         }
     }
 }
