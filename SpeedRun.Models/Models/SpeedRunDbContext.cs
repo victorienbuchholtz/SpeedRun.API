@@ -13,6 +13,8 @@ namespace SpeedRun.Models.Models
         public virtual DbSet<Value> Values { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Theme> Theme { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -52,6 +54,22 @@ namespace SpeedRun.Models.Models
             modelBuilder.Entity<Order>()
                 .HasOne(e => e.User)
                 .WithMany(e => e.Orders);
+
+            // ICI REPOSE : Les MANY TO MANY
+            modelBuilder.Entity<ProductTheme>()
+                .HasKey(t => new {t.ProductId, t.ThemeId});
+
+            modelBuilder.Entity<ProductGenre>()
+                .HasKey(t => new { t.ProductId, t.GenreId });
+
+            modelBuilder.Entity<ProductGameMode>()
+                .HasKey(t => new { t.ProductId, t.GameModeId });
+
+            modelBuilder.Entity<ProductGameEngine>()
+                .HasKey(t => new { t.ProductId, t.GameEngineId });
+
+            modelBuilder.Entity<ProductCompany>()
+                .HasKey(t => new { t.ProductId, t.CompanyId });
 
         }
     }
