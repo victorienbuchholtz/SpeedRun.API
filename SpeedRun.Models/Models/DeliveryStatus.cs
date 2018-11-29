@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace SpeedRun.Models.Models
 {
@@ -7,5 +8,7 @@ namespace SpeedRun.Models.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public ICollection<Order> Orders { get; set; }
     }
 }

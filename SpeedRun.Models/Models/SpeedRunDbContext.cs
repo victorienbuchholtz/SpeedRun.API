@@ -11,8 +11,8 @@ namespace SpeedRun.Models.Models
         { }
 
         public virtual DbSet<Value> Values { get; set; }
-        //public virtual DbSet<User> User { get; set; }
-        //public virtual DbSet<Order> Order { get; set; }
+        public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,24 +26,34 @@ namespace SpeedRun.Models.Models
                 .HasIndex(v => v.Name)
                 .IsUnique();
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.DeliveryAddresses)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.User);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.DeliveryAddresses)
+                .WithOne()
+                .HasForeignKey(e => e.User);
 
-            //modelBuilder.Entity<User>()
-            //    .HasMany(e => e.Orders)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.User);
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Orders)
+                .WithOne()
+                .HasForeignKey(e => e.User);
 
-            //modelBuilder.Entity<Order>()
-            //    .HasMany(e => e.OrderedProducts)
-            //    .WithOne()
-            //    .HasForeignKey(e => e.Order);
+            modelBuilder.Entity<Order>()
+                .HasMany(e => e.OrderedProducts)
+                .WithOne()
+                .HasForeignKey(e => e.Order);
 
-            //modelBuilder.Entity<Order>()
-            //    .HasOne(e => e.DeliveryAddress)
-            //    .WithMany(e => e.Orders);
+            modelBuilder.Entity<Order>()
+                .HasOne(e => e.DeliveryAddress)
+                .WithMany(e => e.Orders);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(e => e.DeliveryStatus)
+                .WithMany(e => e.Orders);
+
+            modelBuilder.Entity<Order>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.Orders);
+
+
         }
     }
 }
