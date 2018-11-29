@@ -9,6 +9,6 @@ namespace SpeedRun.Models.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public List<Order> Orders { get; set; }
     }
 }
