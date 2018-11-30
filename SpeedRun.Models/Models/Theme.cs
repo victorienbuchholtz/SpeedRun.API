@@ -9,6 +9,6 @@ namespace SpeedRun.Models.Models
         public string Name { get; set; }
         public string Url { get; set; }
 
-        public List<ProductTheme> ProductThemes { get; set; }
+        public List<ProductTheme> Product { get; set; }
     }
 }

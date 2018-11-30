@@ -32,6 +32,6 @@ namespace SpeedRun.Models.Models
         public List<ProductGameEngine> GameEngines { get; set; }
         public List<ProductGameMode> GameModes { get; set; }
         public List<ProductGenre> Genres { get; set; }
-        public List<ProductTheme> ProductThemes { get; set; }
+        public List<ProductTheme> Themes { get; set; }
     }
 }
