@@ -10,6 +10,6 @@ namespace SpeedRun.Models.Models
         public string Url { get; set; }
 
         // Many to many
-        public List<Product> Products { get; set; }
+        public List<ProductGenre> Products { get; set; }
     }
 }
