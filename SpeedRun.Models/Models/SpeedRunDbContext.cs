@@ -55,6 +55,15 @@ namespace SpeedRun.Models.Models
                 .HasOne(e => e.User)
                 .WithMany(e => e.Orders);
 
+            modelBuilder.Entity<Product>()
+                .HasMany(e => e.OrderedProducts)
+                .WithOne()
+                .HasForeignKey(e => e.Product);
+
+            modelBuilder.Entity<Product>()
+                .HasOne(e => e.Franchise)
+                .WithMany(e => e.Products);
+
             // ICI REPOSE : Les MANY TO MANY
             modelBuilder.Entity<ProductTheme>()
                 .HasKey(t => new {t.ProductId, t.ThemeId});
@@ -70,7 +79,6 @@ namespace SpeedRun.Models.Models
 
             modelBuilder.Entity<ProductCompany>()
                 .HasKey(t => new { t.ProductId, t.CompanyId });
-
         }
     }
 }

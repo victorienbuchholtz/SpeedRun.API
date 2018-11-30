@@ -8,6 +8,8 @@ namespace SpeedRun.Models.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Url { get; set; }
+
+        // Many to many
         public List<Product> Products { get; set; }
     }
 }

@@ -25,12 +25,13 @@ namespace SpeedRun.Models.Models
 
         public List<OrderedProduct> OrderedProducts { get; set; }
         public Franchise Franchise { get; set; }
+
+        // Many to many
         public List<ProductCompany> Developpers { get; set; }
         public List<ProductCompany> Publishers { get; set; }
         public List<ProductGameEngine> GameEngines { get; set; }
         public List<ProductGameMode> GameModes { get; set; }
         public List<ProductGenre> Genres { get; set; }
         public List<ProductTheme> ProductThemes { get; set; }
-
     }
 }
