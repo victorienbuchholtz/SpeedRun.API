@@ -20,9 +20,8 @@ namespace SpeedRun.Models.Models
         public bool Active { get; set; }
         public int Inventory { get; set; }
 
-        public List<string> ScreenshotUrls { get; set; }
-        public List<string> VideoUrls { get; set; }
-
+        public List<Screenshot> Screenshots { get; set; }
+        public List<Video> Videos { get; set; }
         public List<OrderedProduct> OrderedProducts { get; set; }
         public Franchise Franchise { get; set; }
 
