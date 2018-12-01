@@ -17,23 +17,6 @@ namespace SpeedRun.Models.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(127);
-
-                    b.Property<string>("ConcurrencyStamp");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("NormalizedName");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityRole");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
@@ -91,11 +74,9 @@ namespace SpeedRun.Models.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasMaxLength(127);
+                    b.Property<Guid>("UserId");
 
-                    b.Property<Guid>("RoleId")
-                        .HasMaxLength(127);
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -106,8 +87,7 @@ namespace SpeedRun.Models.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<Guid>("UserId")
-                        .HasMaxLength(127);
+                    b.Property<Guid>("UserId");
 
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(127);
@@ -410,10 +390,10 @@ namespace SpeedRun.Models.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.HasKey("Id");
 
@@ -457,8 +437,7 @@ namespace SpeedRun.Models.Migrations
             modelBuilder.Entity("SpeedRun.Models.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(127);
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -472,7 +451,7 @@ namespace SpeedRun.Models.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -485,10 +464,10 @@ namespace SpeedRun.Models.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("PasswordHash");
 
@@ -501,7 +480,7 @@ namespace SpeedRun.Models.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("ZipCode");
 

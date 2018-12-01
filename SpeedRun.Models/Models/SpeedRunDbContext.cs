@@ -17,6 +17,8 @@ namespace SpeedRun.Models.Models
         public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<Theme> Theme { get; set; }
 
+        private const int MAX_KEY_LENGTH = 127;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -36,28 +38,7 @@ namespace SpeedRun.Models.Models
                 .HasKey(t => t.Id);
 
             modelBuilder.Entity<Value>(e => e.Property(m => m.Name).HasMaxLength(127));
-            //modelBuilder.Entity<IdentityUserLogin<Guid>>(e => e.Property(m => m.LoginProvider).HasMaxLength(127));
-            //modelBuilder.Entity<IdentityUserLogin<Guid>>(e => e.Property(m => m.ProviderKey).HasMaxLength(127));
-            modelBuilder.Entity<User>(entity => entity.Property(m => m.Id).HasMaxLength(127));
-            modelBuilder.Entity<IdentityRole>(entity => entity.Property(m => m.Id).HasMaxLength(127));
-            modelBuilder.Entity<IdentityUserLogin<Guid>>(entity =>
-            {
-                entity.Property(m => m.LoginProvider).HasMaxLength(127);
-                entity.Property(m => m.ProviderKey).HasMaxLength(127);
-            });
-            modelBuilder.Entity<IdentityUserRole<Guid>>(entity =>
-            {
-                entity.Property(m => m.UserId).HasMaxLength(127);
-                entity.Property(m => m.RoleId).HasMaxLength(127);
-            });
-            modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
-            {
-                entity.Property(m => m.UserId).HasMaxLength(127);
-                entity.Property(m => m.LoginProvider).HasMaxLength(127);
-                entity.Property(m => m.Name).HasMaxLength(127);
-            });
-
-
+            
             modelBuilder.Entity<Value>()
                 .HasIndex(v => v.Name)
                 .IsUnique();
@@ -163,6 +144,33 @@ namespace SpeedRun.Models.Models
                 .HasOne(bc => bc.Company)
                 .WithMany(c => c.Developped)
                 .HasForeignKey(bc => bc.CompanyId);
+
+            // ICI REPOSE : Les longueurs pas cool
+            modelBuilder.Entity<User>(e =>
+            {
+                e.Property(m => m.UserName).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedUserName).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.Email).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedEmail).HasMaxLength(MAX_KEY_LENGTH);
+            });
+
+            modelBuilder.Entity<Role>(e =>
+            {
+                e.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedName).HasMaxLength(MAX_KEY_LENGTH);
+            });
+
+            modelBuilder.Entity<IdentityUserLogin<Guid>>(entity =>
+            {
+                entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
+                entity.Property(m => m.ProviderKey).HasMaxLength(MAX_KEY_LENGTH);
+            });
+            modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
+            {
+                entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
+                entity.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
+
+            });
         }
     }
 }

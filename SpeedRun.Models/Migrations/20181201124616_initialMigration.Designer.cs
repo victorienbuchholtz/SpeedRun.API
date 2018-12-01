@@ -9,14 +9,14 @@ using SpeedRun.Models.Models;
 namespace SpeedRun.Models.Migrations
 {
     [DbContext(typeof(SpeedRunDbContext))]
-    [Migration("20181128110508_InitialMigrate")]
-    partial class InitialMigrate
+    [Migration("20181201124616_initialMigration")]
+    partial class initialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -57,9 +57,11 @@ namespace SpeedRun.Models.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(127);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(127);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -89,15 +91,35 @@ namespace SpeedRun.Models.Migrations
                 {
                     b.Property<Guid>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(127);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(127);
 
                     b.Property<string>("Value");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Company", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.Property<string>("UrlLogo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Models.DeliveryAddress", b =>
@@ -140,6 +162,62 @@ namespace SpeedRun.Models.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DeliveryStatus");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Franchise", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Franchise");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.GameEngine", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GameEngine");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.GameMode", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GameMode");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Genre", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Models.Order", b =>
@@ -197,23 +275,110 @@ namespace SpeedRun.Models.Migrations
 
                     b.Property<bool>("Active");
 
+                    b.Property<string>("CoverUrl");
+
                     b.Property<int>("DeliveryTime");
 
-                    b.Property<string>("Description");
+                    b.Property<DateTime>("FirstReleaseDate");
+
+                    b.Property<Guid?>("FranchiseId");
 
                     b.Property<int>("Inventory");
 
                     b.Property<string>("Name");
 
-                    b.Property<string>("Picture");
+                    b.Property<int>("PegiRating");
 
                     b.Property<double>("Price");
 
+                    b.Property<int>("RatingCount");
+
+                    b.Property<string>("StoryLine");
+
+                    b.Property<string>("Summary");
+
                     b.Property<double>("Taxes");
+
+                    b.Property<int>("TotalRating");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("FranchiseId");
+
                     b.ToTable("Product");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductCompany", b =>
+                {
+                    b.Property<Guid>("ProductId");
+
+                    b.Property<Guid>("CompanyId");
+
+                    b.Property<Guid?>("CompanyId1");
+
+                    b.Property<Guid?>("ProductId1");
+
+                    b.HasKey("ProductId", "CompanyId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("CompanyId1");
+
+                    b.HasIndex("ProductId1");
+
+                    b.ToTable("ProductCompany");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGameEngine", b =>
+                {
+                    b.Property<Guid>("ProductId");
+
+                    b.Property<Guid>("GameEngineId");
+
+                    b.HasKey("ProductId", "GameEngineId");
+
+                    b.HasIndex("GameEngineId");
+
+                    b.ToTable("ProductGameEngine");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGameMode", b =>
+                {
+                    b.Property<Guid>("ProductId");
+
+                    b.Property<Guid>("GameModeId");
+
+                    b.HasKey("ProductId", "GameModeId");
+
+                    b.HasIndex("GameModeId");
+
+                    b.ToTable("ProductGameMode");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGenre", b =>
+                {
+                    b.Property<Guid>("ProductId");
+
+                    b.Property<Guid>("GenreId");
+
+                    b.HasKey("ProductId", "GenreId");
+
+                    b.HasIndex("GenreId");
+
+                    b.ToTable("ProductGenre");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductTheme", b =>
+                {
+                    b.Property<Guid>("ProductId");
+
+                    b.Property<Guid>("ThemeId");
+
+                    b.HasKey("ProductId", "ThemeId");
+
+                    b.HasIndex("ThemeId");
+
+                    b.ToTable("ProductTheme");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Models.Role", b =>
@@ -227,10 +392,10 @@ namespace SpeedRun.Models.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.HasKey("Id");
 
@@ -239,6 +404,36 @@ namespace SpeedRun.Models.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Screenshot", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("ProductId");
+
+                    b.Property<string>("ScreenshotUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Screenshot");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Theme", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Theme");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Models.User", b =>
@@ -258,7 +453,7 @@ namespace SpeedRun.Models.Migrations
                         .IsConcurrencyToken();
 
                     b.Property<string>("Email")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<bool>("EmailConfirmed");
 
@@ -271,10 +466,10 @@ namespace SpeedRun.Models.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("PasswordHash");
 
@@ -287,7 +482,7 @@ namespace SpeedRun.Models.Migrations
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                        .HasMaxLength(127);
 
                     b.Property<string>("ZipCode");
 
@@ -301,6 +496,22 @@ namespace SpeedRun.Models.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Video", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid?>("ProductId");
+
+                    b.Property<string>("VideoUrl");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Video");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Value", b =>
@@ -378,7 +589,7 @@ namespace SpeedRun.Models.Migrations
                         .HasForeignKey("DeliveryAddressId");
 
                     b.HasOne("SpeedRun.Models.Models.DeliveryStatus", "DeliveryStatus")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("DeliveryStatusId");
 
                     b.HasOne("SpeedRun.Models.Models.User", "User")
@@ -393,7 +604,101 @@ namespace SpeedRun.Models.Migrations
                         .HasForeignKey("OrderId");
 
                     b.HasOne("SpeedRun.Models.Models.Product", "Product")
-                        .WithMany()
+                        .WithMany("OrderedProducts")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Product", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Franchise", "Franchise")
+                        .WithMany("Products")
+                        .HasForeignKey("FranchiseId");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductCompany", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Company", "Company")
+                        .WithMany("Developped")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Company")
+                        .WithMany("Published")
+                        .HasForeignKey("CompanyId1");
+
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("Developpers")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Product")
+                        .WithMany("Publishers")
+                        .HasForeignKey("ProductId1");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGameEngine", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.GameEngine", "GameEngine")
+                        .WithMany("Products")
+                        .HasForeignKey("GameEngineId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("GameEngines")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGameMode", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.GameMode", "GameMode")
+                        .WithMany("Products")
+                        .HasForeignKey("GameModeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("GameModes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductGenre", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Genre", "Genre")
+                        .WithMany("Products")
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("Genres")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.ProductTheme", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("Themes")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpeedRun.Models.Models.Theme", "Theme")
+                        .WithMany("Products")
+                        .HasForeignKey("ThemeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Screenshot", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("Screenshots")
+                        .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("SpeedRun.Models.Models.Video", b =>
+                {
+                    b.HasOne("SpeedRun.Models.Models.Product", "Product")
+                        .WithMany("Videos")
                         .HasForeignKey("ProductId");
                 });
 #pragma warning restore 612, 618
