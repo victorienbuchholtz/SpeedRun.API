@@ -10,6 +10,6 @@ namespace SpeedRun.Models.Models
         public string CdKey { get; set; }
 
         public Order Order { get; set; }
-        public Product Product { get; set; }
+        public Product.Product Product { get; set; }
     }
 }

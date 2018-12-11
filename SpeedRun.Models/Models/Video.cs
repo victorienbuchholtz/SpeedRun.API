@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SpeedRun.Models.Models
 {
@@ -9,6 +7,6 @@ namespace SpeedRun.Models.Models
         public Guid Id { get; set; }
         public string VideoUrl { get; set; }
 
-        public Product Product { get; set; }
+        public Product.Product Product { get; set; }
     }
 }

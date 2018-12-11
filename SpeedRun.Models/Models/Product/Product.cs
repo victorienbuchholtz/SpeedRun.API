@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SpeedRun.Models.Models
+namespace SpeedRun.Models.Models.Product
 {
     public class Product
     {
@@ -26,7 +26,7 @@ namespace SpeedRun.Models.Models
         public Franchise Franchise { get; set; }
 
         // Many to many
-        public List<ProductDevelopper> Developpers { get; set; }
+        public List<ProductDeveloper> Developers { get; set; }
         public List<ProductPublisher> Publishers { get; set; }
         public List<ProductGameEngine> GameEngines { get; set; }
         public List<ProductGameMode> GameModes { get; set; }

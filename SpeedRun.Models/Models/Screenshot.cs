@@ -7,6 +7,6 @@ namespace SpeedRun.Models.Models
         public Guid Id { get; set; }
         public string ScreenshotUrl { get; set; }
 
-        public Product Product { get; set; }
+        public Product.Product Product { get; set; }
     }
 }

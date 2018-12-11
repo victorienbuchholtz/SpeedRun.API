@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SpeedRun.Models.Models.Product;
 
 namespace SpeedRun.Models.Models
 {
@@ -14,7 +15,7 @@ namespace SpeedRun.Models.Models
         public virtual DbSet<Value> Values { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Order> Order { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
+        public virtual DbSet<Product.Product> Product { get; set; }
         public virtual DbSet<Theme> Theme { get; set; }
 
         private const int MAX_KEY_LENGTH = 127;
@@ -31,7 +32,7 @@ namespace SpeedRun.Models.Models
             modelBuilder.Entity<Order>()
                 .HasKey(o => o.Id);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product.Product>()
                 .HasKey(p => p.Id);
 
             modelBuilder.Entity<Theme>()
@@ -63,19 +64,19 @@ namespace SpeedRun.Models.Models
                 .HasOne(e => e.DeliveryStatus)
                 .WithMany(e => e.Orders);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product.Product>()
                 .HasMany(e => e.OrderedProducts)
                 .WithOne(e => e.Product);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product.Product>()
                 .HasOne(e => e.Franchise)
                 .WithMany(e => e.Products);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product.Product>()
                 .HasMany(e => e.Screenshots)
                 .WithOne(e => e.Product);
 
-            modelBuilder.Entity<Product>()
+            modelBuilder.Entity<Product.Product>()
                 .HasMany(e => e.Videos)
                 .WithOne(e => e.Product);
 
@@ -132,17 +133,17 @@ namespace SpeedRun.Models.Models
                 .WithMany(c => c.Products)
                 .HasForeignKey(bc => bc.GameEngineId);
 
-            modelBuilder.Entity<ProductDevelopper>()
+            modelBuilder.Entity<ProductDeveloper>()
                 .HasKey(t => new { t.ProductId, t.CompanyId });
 
-            modelBuilder.Entity<ProductDevelopper>()
+            modelBuilder.Entity<ProductDeveloper>()
                 .HasOne(bc => bc.Product)
-                .WithMany(b => b.Developpers)
+                .WithMany(b => b.Developers)
                 .HasForeignKey(bc => bc.ProductId);
 
-            modelBuilder.Entity<ProductDevelopper>()
+            modelBuilder.Entity<ProductDeveloper>()
                 .HasOne(bc => bc.Company)
-                .WithMany(c => c.Developped)
+                .WithMany(c => c.Developed)
                 .HasForeignKey(bc => bc.CompanyId);
 
             modelBuilder.Entity<ProductPublisher>()

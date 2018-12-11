@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SpeedRun.Models.Models.Product;
 
 namespace SpeedRun.Models.Models
 {

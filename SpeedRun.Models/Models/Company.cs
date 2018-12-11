@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SpeedRun.Models.Models.Product;
 
 namespace SpeedRun.Models.Models
 {
@@ -13,6 +14,6 @@ namespace SpeedRun.Models.Models
 
         // Many to many
         public List<ProductPublisher> Published { get; set; }
-        public List<ProductDevelopper> Developped { get; set; }
+        public List<ProductDeveloper> Developed { get; set; }
     }
 }

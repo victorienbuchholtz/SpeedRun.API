@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SpeedRun.Models;
 using SpeedRun.Models.Models;
+using SpeedRun.Models.Models.Product;
 using SpeedRun.Repository.Repositories;
 using SpeedRun.RepositoryGeneric.Interface;
 using SpeedRun.Services.Interfaces;

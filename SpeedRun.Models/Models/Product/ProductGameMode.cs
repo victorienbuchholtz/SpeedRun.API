@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpeedRun.Models.Models
+namespace SpeedRun.Models.Models.Product
 {
     public class ProductGameMode
     {
