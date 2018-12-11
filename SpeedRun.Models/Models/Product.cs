@@ -26,8 +26,8 @@ namespace SpeedRun.Models.Models
         public Franchise Franchise { get; set; }
 
         // Many to many
-        public List<ProductCompany> Developpers { get; set; }
-        public List<ProductCompany> Publishers { get; set; }
+        public List<ProductDevelopper> Developpers { get; set; }
+        public List<ProductPublisher> Publishers { get; set; }
         public List<ProductGameEngine> GameEngines { get; set; }
         public List<ProductGameMode> GameModes { get; set; }
         public List<ProductGenre> Genres { get; set; }

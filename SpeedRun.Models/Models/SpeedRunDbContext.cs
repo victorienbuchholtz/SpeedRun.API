@@ -132,17 +132,30 @@ namespace SpeedRun.Models.Models
                 .WithMany(c => c.Products)
                 .HasForeignKey(bc => bc.GameEngineId);
 
-            modelBuilder.Entity<ProductCompany>()
+            modelBuilder.Entity<ProductDevelopper>()
                 .HasKey(t => new { t.ProductId, t.CompanyId });
 
-            modelBuilder.Entity<ProductCompany>()
+            modelBuilder.Entity<ProductDevelopper>()
                 .HasOne(bc => bc.Product)
                 .WithMany(b => b.Developpers)
                 .HasForeignKey(bc => bc.ProductId);
 
-            modelBuilder.Entity<ProductCompany>()
+            modelBuilder.Entity<ProductDevelopper>()
                 .HasOne(bc => bc.Company)
                 .WithMany(c => c.Developped)
+                .HasForeignKey(bc => bc.CompanyId);
+
+            modelBuilder.Entity<ProductPublisher>()
+                .HasKey(t => new { t.ProductId, t.CompanyId });
+
+            modelBuilder.Entity<ProductPublisher>()
+                .HasOne(bc => bc.Product)
+                .WithMany(b => b.Publishers)
+                .HasForeignKey(bc => bc.ProductId);
+
+            modelBuilder.Entity<ProductPublisher>()
+                .HasOne(bc => bc.Company)
+                .WithMany(c => c.Published)
                 .HasForeignKey(bc => bc.CompanyId);
 
             // ICI REPOSE : Les longueurs pas cool
@@ -165,6 +178,7 @@ namespace SpeedRun.Models.Models
                 entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
                 entity.Property(m => m.ProviderKey).HasMaxLength(MAX_KEY_LENGTH);
             });
+
             modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
             {
                 entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);

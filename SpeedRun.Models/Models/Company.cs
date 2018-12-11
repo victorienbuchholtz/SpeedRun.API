@@ -12,7 +12,7 @@ namespace SpeedRun.Models.Models
         public string Description { get; set; }
 
         // Many to many
-        public List<ProductCompany> Published { get; set; }
-        public List<ProductCompany> Developped { get; set; }
+        public List<ProductPublisher> Published { get; set; }
+        public List<ProductDevelopper> Developped { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SpeedRun.Models.Models
 {
-    public class ProductCompany
+    public class ProductDevelopper
     {
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
