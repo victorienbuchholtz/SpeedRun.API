@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Services", "SpeedR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Repository", "SpeedRun.Repository\SpeedRun.Repository.csproj", "{5DC0BD4A-13CC-4756-BDA2-22DE369A6800}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpeedRun.Services.Tests", "SpeedRun.Services.Tests\SpeedRun.Services.Tests.csproj", "{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpeedRun.Services.Tests", "SpeedRun.Services.Tests\SpeedRun.Services.Tests.csproj", "{6979E25B-ADDE-450A-ADB0-CD7AF001DF9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

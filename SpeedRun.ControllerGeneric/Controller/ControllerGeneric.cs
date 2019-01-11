@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ServiceGeneric.Interface;
+using System.Collections.Generic;
 
 namespace SpeedRun.ControllerGeneric
 {

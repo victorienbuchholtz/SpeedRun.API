@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models;
-using SpeedRun.ServiceGeneric.Interface;
 using SpeedRun.Services.Interfaces;
 
 namespace SpeedRun.API.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class ValuesController : ControllerGeneric<Value>
     {
         public ValuesController(IValueService service) : base(service)
