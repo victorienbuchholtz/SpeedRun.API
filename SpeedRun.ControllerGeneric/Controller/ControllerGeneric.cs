@@ -6,24 +6,24 @@ namespace SpeedRun.ControllerGeneric
 {
     public class ControllerGeneric<T> : ControllerBase where T : class
     {
-        protected IServiceGeneric<T> _service;
+        protected IServiceGeneric<T> service;
 
         public ControllerGeneric(IServiceGeneric<T> service)
         {
-            this._service = service;
+            this.service = service;
         }
 
         [HttpGet]
         public virtual List<T> GetAll()
         {
-            return _service.GetAll();
+            return service.GetAll();
         }
 
         [HttpPost]
         public virtual IActionResult Add([FromBody] T obj)
         {
             if (obj == null) return BadRequest("Invalid form");
-            T objTmp = _service.Add(obj);
+            T objTmp = service.Add(obj);
             if (objTmp != null)
             {
                 return Ok(objTmp);
