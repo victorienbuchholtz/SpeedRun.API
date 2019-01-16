@@ -22,6 +22,7 @@ namespace SpeedRun.ControllerGeneric
         [HttpPost]
         public virtual IActionResult Add([FromBody] T obj)
         {
+            if (obj == null) return BadRequest("Invalid form");
             T objTmp = _service.Add(obj);
             if (objTmp != null)
             {
