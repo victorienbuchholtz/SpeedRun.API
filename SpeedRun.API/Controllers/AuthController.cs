@@ -9,14 +9,9 @@ namespace SpeedRun.API.Controllers
     public class AuthController : Controller
     {
         [Route("signin")]
-        public IActionResult SignIn() => View();
-
-        [Route("signin/{provider}")]
-        public IActionResult SignIn(string provider)
+        public IActionResult SignIn(string returnUrl = "/")
         {
-            AuthenticationProperties ap = new AuthenticationProperties { RedirectUri = "/" };
-            var challenge = Challenge(ap, provider);
-            return challenge;
+            return Challenge(new AuthenticationProperties { RedirectUri = returnUrl });
         }
 
         [Route("signout")]
