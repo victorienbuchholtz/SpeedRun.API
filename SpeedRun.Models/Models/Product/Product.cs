@@ -32,5 +32,22 @@ namespace SpeedRun.Models.Models.Product
         public List<ProductGameMode> GameModes { get; set; }
         public List<ProductGenre> Genres { get; set; }
         public List<ProductTheme> Themes { get; set; }
+
+        public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active, int inventory)
+        {
+            Name = name;
+            Summary = summary;
+            StoryLine = storyLine;
+            TotalRating = totalRating;
+            RatingCount = ratingCount;
+            FirstReleaseDate = firstReleaseDate;
+            CoverUrl = coverUrl;
+            PegiRating = pegiRating;
+            Price = price;
+            Taxes = taxes;
+            DeliveryTime = deliveryTime;
+            Active = active;
+            Inventory = inventory;
+        }
     }
 }
