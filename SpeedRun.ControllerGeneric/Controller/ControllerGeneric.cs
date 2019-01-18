@@ -25,8 +25,8 @@ namespace SpeedRun.ControllerGeneric
         [HttpGet("{id}")]
         public virtual T Get(Guid id)
         {
-            PropertyInfo _idProperty = typeof(T).GetProperty("Id");
-            return service.Get(x => (Guid)_idProperty.GetValue(x) == id);
+            PropertyInfo idProperty = typeof(T).GetProperty("Id");
+            return service.Get(x => (Guid)idProperty.GetValue(x) == id);
         }
 
         [HttpPost]
