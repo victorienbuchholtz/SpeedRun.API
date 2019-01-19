@@ -17,7 +17,7 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("signin")]
-        public IActionResult SignIn(string returnUrl = "/auth/signinconfirmed")
+        public IActionResult SignIn(string returnUrl = "http://localhost:4200")
         {
             return Challenge(new AuthenticationProperties { RedirectUri = returnUrl });
         }
@@ -34,7 +34,7 @@ namespace SpeedRun.API.Controllers
                 user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
                 service.Add(user);
 
-                return RedirectToRoute("http://localhost:4200/", user);
+                return Redirect($"http://localhost:4200/");
             }
 
             return BadRequest("Access denied");
