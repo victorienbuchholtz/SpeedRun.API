@@ -32,6 +32,7 @@ namespace SpeedRun.API.Controllers
                 user.AvatarUrl = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
                 user.Email = User.FindFirst(c => c.Type == "urn:github:email")?.Value;
                 user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+                service.Add(user);
 
                 return RedirectToRoute("http://localhost:4200/", user);
             }
