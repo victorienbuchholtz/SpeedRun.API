@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SpeedRun.API.Factories;
 using SpeedRun.API.Models;
@@ -15,8 +16,8 @@ namespace SpeedRun.API.Controllers
         {
         }
 
-        [HttpGet("GetSimilarGameName")]
-        public List<string> GetSimilarGameName(string name)
+        [HttpGet("GetSimilarProductName")]
+        public List<string> GetSimilarProductName(string name)
         {
             // TODO : IMPLEMENTER
             // CALL IGDB API récupère les noms des jeux similaire à name
@@ -26,6 +27,21 @@ namespace SpeedRun.API.Controllers
 
             return ProductFactory.GetProductNames(name);
         }
+
+        [HttpGet("GetSimilarDbProductName")]
+        public List<string> GetSimilarDbProductName(string name)
+        {
+            var products = service.GetAll(x => x.Name.Contains(name));
+            var productNames = products.Select(x => x.Name).ToList();
+            return productNames;
+        }
+
+        [HttpGet("GetSimilarDbProduct")]
+        public List<Product> GetSimilarDbProduct(string name)
+        {
+            return service.GetAll(x => x.Name.Contains(name));
+        }
+
 
         [HttpPost("ProductName")]
         public Product Add([FromBody]ProductAddModel productAddModel)
