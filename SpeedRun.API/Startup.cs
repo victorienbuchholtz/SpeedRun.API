@@ -35,8 +35,6 @@ namespace SpeedRun.API
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;

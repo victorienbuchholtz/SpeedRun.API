@@ -10,5 +10,13 @@ namespace SpeedRun.Services.Services
         public UserService(IRepositoryGeneric<User> repo) : base(repo)
         {
         }
+
+        public User GetByIDGitHub(string idGitHub)
+        {
+            User u = Get(x => x.IDGitHub.Equals(idGitHub));
+            if (u != null)
+                return u;
+            return new User();
+        }
     }
 }
