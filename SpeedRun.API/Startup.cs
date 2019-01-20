@@ -35,6 +35,8 @@ namespace SpeedRun.API
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddAuthentication(options =>
                 {
                     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -80,8 +82,6 @@ namespace SpeedRun.API
                     };
                 });
 
-
-
             services.AddDbContext<SpeedRunDbContext>(options => options.UseMySql(Configuration.GetConnectionString("SpeedRun")));
 
             DependencyInjector.InjectRepositories(services);
@@ -104,8 +104,8 @@ namespace SpeedRun.API
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            
-            app.UseStaticFiles();   
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 

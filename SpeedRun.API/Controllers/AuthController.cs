@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models;
@@ -33,7 +35,6 @@ namespace SpeedRun.API.Controllers
                 user.Email = User.FindFirst(c => c.Type == "urn:github:email")?.Value;
                 user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
                 service.Add(user);
-
                 return RedirectToRoute("http://localhost:4200/", user);
             }
 

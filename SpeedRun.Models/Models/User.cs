@@ -11,7 +11,7 @@ namespace SpeedRun.Models.Models
         public string ZipCode { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
-
+        public string IDGitHub { get; set; }
         public string AvatarUrl { get; set; }
 
         public List<DeliveryAddress> DeliveryAddresses { get; set; }
