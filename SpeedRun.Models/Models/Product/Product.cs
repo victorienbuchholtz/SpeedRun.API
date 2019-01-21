@@ -23,6 +23,7 @@ namespace SpeedRun.Models.Models.Product
         public List<Screenshot> Screenshots { get; set; }
         public List<Video> Videos { get; set; }
         public List<OrderedProduct> OrderedProducts { get; set; }
+        public List<InventoryOperation> InventoryOperations { get; set; }
         public Franchise Franchise { get; set; }
 
         // Many to many

@@ -74,5 +74,11 @@ namespace SpeedRun.API.Controllers
             return product;
         }
 
+        [HttpGet("Active")]
+        public List<Product> Active()
+        {
+            return service.GetAll(x => x.Active);
+        }
+
     }
 }
