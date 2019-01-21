@@ -23,12 +23,16 @@ namespace SpeedRun.RepositoryGeneric.Repository
 
         public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
-            if (predicate == null) return dbSet.AsQueryable().ToList(); 
-            var query = dbSet.Where(predicate).AsQueryable();
+            var query = dbSet.AsQueryable();
             foreach (var include in new T().IncludesNeeded())
             {
                 query = query.Include(include);
             }
+            if (predicate == null)
+            {
+                return query.ToList();
+            } 
+            query = query.Where(predicate).AsQueryable();
             return query.ToList();
         }
 
