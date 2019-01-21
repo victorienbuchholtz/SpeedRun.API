@@ -14,4 +14,10 @@
     <ProjectReference Include="..\SpeedRun.RepositoryGeneric\SpeedRun.RepositoryGeneric.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.JsonPatch">
+      <HintPath>..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.jsonpatch\1.1.0\lib\netstandard1.3\Microsoft.AspNetCore.JsonPatch.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

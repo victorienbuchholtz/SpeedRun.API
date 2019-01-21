@@ -4,6 +4,7 @@ using SpeedRun.ServiceGeneric.Interface;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpeedRun.ControllerGeneric
 {
@@ -40,6 +41,12 @@ namespace SpeedRun.ControllerGeneric
             }
 
             return BadRequest($"{typeof(T)} already exist !");
+        }
+
+        [HttpPatch("{id}")]
+        public virtual T Patch(Guid id, [FromBody] JsonPatchDocument<T> tPatch)
+        {
+            return service.Patch(tPatch, id);
         }
     }
 }

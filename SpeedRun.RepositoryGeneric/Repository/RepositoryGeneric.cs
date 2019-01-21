@@ -4,6 +4,7 @@ using SpeedRun.RepositoryGeneric.Interface;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpeedRun.RepositoryGeneric.Repository
 {
@@ -53,6 +54,12 @@ namespace SpeedRun.RepositoryGeneric.Repository
             context.Attach(obj);
             context.Set<T>().Remove(obj);
             context.SaveChanges();
+        }
+
+        public T Patch(JsonPatchDocument<T> tPatch, T obj)
+        {
+            tPatch.ApplyTo(obj);
+            return Update(obj);
         }
     }
 }

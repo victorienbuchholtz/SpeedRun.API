@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpeedRun.RepositoryGeneric.Interface
 {
@@ -11,5 +12,6 @@ namespace SpeedRun.RepositoryGeneric.Interface
         T Add(T obj);
         T Update(T obj);
         void Delete(T obj);
+        T Patch(JsonPatchDocument<T> tPatch, T obj);
     }
 }
