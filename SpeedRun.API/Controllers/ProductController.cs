@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using SpeedRun.API.Factories;
@@ -12,8 +13,11 @@ namespace SpeedRun.API.Controllers
     [Route("api/[controller]")]
     public class ProductController : ControllerGeneric<Product>
     {
+        private readonly IProductService _productService;
+
         public ProductController(IProductService service) : base(service)
         {
+            _productService = service;
         }
 
         [HttpGet("GetSimilarProductName")]
@@ -58,6 +62,15 @@ namespace SpeedRun.API.Controllers
 
             var product = ProductFactory.GetProduct(productAddModel.name);
             service.Add(product);
+            return product;
+        }
+
+        [HttpGet("ManageInventory")]
+        public Product ManageInventory(Guid id, Boolean add)
+        {
+            var product = service.Get(x => x.Id == id);
+            product = _productService.ManageInventory(product, add);
+            service.Update(product);
             return product;
         }
 
