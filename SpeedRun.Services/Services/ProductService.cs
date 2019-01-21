@@ -14,6 +14,7 @@ namespace SpeedRun.Services.Services
 
         public Product ManageInventory(Product product, bool add)
         {
+            /*
             if (add)
             {
                 product.Inventory++;
@@ -25,7 +26,7 @@ namespace SpeedRun.Services.Services
                     product.Inventory--;
                 }
             }
-
+            */
             return product;
         }
     }

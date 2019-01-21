@@ -1,42 +1,52 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using SpeedRun.Models.Interfaces;
 using SpeedRun.RepositoryGeneric.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpeedRun.RepositoryGeneric.Repository
 {
-    public class RepositoryGeneric<T> : IRepositoryGeneric<T> where T : class
+    public class RepositoryGeneric<T> : IRepositoryGeneric<T> where T : class, IIncludeObject, new()
     {
         protected DbContext context;
+        private readonly DbSet<T> dbSet;
+
 
         public RepositoryGeneric(DbContext dbContextType)
         {
             context = dbContextType;
+            dbSet = context.Set<T>();
         }
 
         public List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
-            var dbSet = context.Set<T>();
-            if (predicate == null) return dbSet.AsQueryable().ToList();
+            if (predicate == null) return dbSet.AsQueryable().ToList(); 
             var query = dbSet.Where(predicate).AsQueryable();
+            foreach (var include in new T().IncludesNeeded())
+            {
+                query = query.Include(include);
+            }
             return query.ToList();
         }
 
         public T Get(Expression<Func<T, bool>> predicate = null)
         {
-            var dbSet = context.Set<T>();
             if (predicate == null) return dbSet.AsQueryable().FirstOrDefault();
-            var query = dbSet.Where(predicate).AsQueryable().FirstOrDefault();
-            return query;
+            var query = dbSet.Where(predicate).AsQueryable();
+            foreach (var include in new T().IncludesNeeded())
+            {
+                query = query.Include(include);
+            }
+            return query.FirstOrDefault();
         }
 
         public T Add(T obj)
         {
             context.Attach(obj);
-            context.Set<T>().Add(obj);
+            dbSet.Add(obj);
             context.SaveChanges();
             return obj;
         }
@@ -44,7 +54,7 @@ namespace SpeedRun.RepositoryGeneric.Repository
         public T Update(T obj)
         {
             context.Attach(obj);
-            context.Set<T>().Update(obj);
+            dbSet.Update(obj);
             context.SaveChanges();
             return obj;
         }
@@ -52,7 +62,7 @@ namespace SpeedRun.RepositoryGeneric.Repository
         public void Delete(T obj)
         {
             context.Attach(obj);
-            context.Set<T>().Remove(obj);
+            dbSet.Remove(obj);
             context.SaveChanges();
         }
 
@@ -61,5 +71,6 @@ namespace SpeedRun.RepositoryGeneric.Repository
             tPatch.ApplyTo(obj);
             return Update(obj);
         }
+
     }
 }

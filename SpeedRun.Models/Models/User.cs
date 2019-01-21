@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
+using SpeedRun.Models.Interfaces;
 
 namespace SpeedRun.Models.Models
 {
-    public class User : IdentityUser<Guid>
+    public class User : IdentityUser<Guid>, IIncludeObject
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,5 +17,9 @@ namespace SpeedRun.Models.Models
 
         public List<DeliveryAddress> DeliveryAddresses { get; set; }
         public List<Order> Orders { get; set; }
+        public List<string> IncludesNeeded()
+        {
+            return new List<string>();
+        }
     }
 }
