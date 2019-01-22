@@ -19,13 +19,10 @@ namespace SpeedRun.API.Controllers
     public class ProductController : ControllerGeneric<Product>
     {
         private readonly IHttpClientFactory _clientFactory;
-
         private readonly IgdbService _igdbService;
-
-        public ProductController(IProductService service, IHttpClientFactory clientFactory, IgdbService igdbService) : base(service)
         private readonly IProductService _productService;
 
-        public ProductController(IProductService service) : base(service)
+        public ProductController(IProductService service, IHttpClientFactory clientFactory, IgdbService igdbService) : base(service)
         {
             _clientFactory = clientFactory;
             _igdbService = igdbService;
