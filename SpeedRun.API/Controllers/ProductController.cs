@@ -28,13 +28,8 @@ namespace SpeedRun.API.Controllers
         }
 
         [HttpGet("GetSimilarProductName")]
-        public async Task<List<string>> GetSimilarProductName(string name)
+        public async Task<List<IgdbGameMinified>> GetSimilarProductName(string name)
         {
-            // TODO : IMPLEMENTER
-            // CALL IGDB API récupère les noms des jeux similaire à name
-            // les retourner sous forme List<string>
-            // ou alors on retourne une list d'un nouvelle objet qui a pour property name et id 
-            // id est remplie si le nom du jeu est déjà présent en base ?
             return await _igdbService.GetSimilarProductNameAsync(name);
         }
 
