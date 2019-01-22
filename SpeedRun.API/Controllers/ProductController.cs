@@ -1,35 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpeedRun.API.Factories;
 using SpeedRun.API.Models;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Interfaces;
+using SpeedRun.Services.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace SpeedRun.API.Controllers
 {
     [Route("api/[controller]")]
     public class ProductController : ControllerGeneric<Product>
     {
+        private readonly IHttpClientFactory _clientFactory;
+        private readonly IgdbService _igdbService;
         private readonly IProductService _productService;
 
-        public ProductController(IProductService service) : base(service)
+        public ProductController(IProductService service, IHttpClientFactory clientFactory, IgdbService igdbService) : base(service)
         {
+            _clientFactory = clientFactory;
+            _igdbService = igdbService;
             _productService = service;
         }
 
         [HttpGet("GetSimilarProductName")]
-        public List<string> GetSimilarProductName(string name)
+        public async Task<List<string>> GetSimilarProductName(string name)
         {
             // TODO : IMPLEMENTER
             // CALL IGDB API récupère les noms des jeux similaire à name
             // les retourner sous forme List<string>
             // ou alors on retourne une list d'un nouvelle objet qui a pour property name et id 
             // id est remplie si le nom du jeu est déjà présent en base ?
-
-            return ProductFactory.GetProductNames(name);
+            return await _igdbService.GetSimilarProductNameAsync(name);
         }
 
         [HttpGet("GetSimilarDbProductName")]

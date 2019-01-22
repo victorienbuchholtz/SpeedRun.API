@@ -53,18 +53,20 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("authenticate")]
-        [Authorize]
         public User Authenticate()
         {
-            User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-
-            return user;
+            if (User.Identity.IsAuthenticated)
+            {
+                User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+                return user;
+            }
+            return null;
         }
 
         [Route("signout")]
-        public async Task<IActionResult> SignOut()
+        public IActionResult SignOut()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("http://localhost:4200/");
         }
     }
