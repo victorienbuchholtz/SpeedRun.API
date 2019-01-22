@@ -23,6 +23,8 @@ namespace SpeedRun.Models.Models.Product
         public bool Active { get; set; }
         public int Inventory => GetInventory();
 
+        public int IgdbId { get; set; }
+
         public List<Screenshot> Screenshots { get; set; }
         public List<Video> Videos { get; set; }
         public List<OrderedProduct> OrderedProducts { get; set; }
