@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using SpeedRun.API.Factories;
 using SpeedRun.API.Models;
 using SpeedRun.ControllerGeneric;
@@ -20,9 +23,13 @@ namespace SpeedRun.API.Controllers
         private readonly IgdbService _igdbService;
 
         public ProductController(IProductService service, IHttpClientFactory clientFactory, IgdbService igdbService) : base(service)
+        private readonly IProductService _productService;
+
+        public ProductController(IProductService service) : base(service)
         {
             _clientFactory = clientFactory;
             _igdbService = igdbService;
+            _productService = service;
         }
 
         [HttpGet("GetSimilarProductName")]
@@ -67,6 +74,21 @@ namespace SpeedRun.API.Controllers
             var product = ProductFactory.GetProduct(productAddModel.name);
             service.Add(product);
             return product;
+        }
+
+        [HttpGet("ManageInventory")]
+        public Product ManageInventory(Guid id, Boolean add)
+        {
+            var product = service.Get(x => x.Id == id);
+            product = _productService.ManageInventory(product, add);
+            service.Update(product);
+            return product;
+        }
+
+        [HttpGet("Active")]
+        public List<Product> Active()
+        {
+            return service.GetAll(x => x.Active);
         }
 
     }

@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using SpeedRun.Models.Enums;
+using SpeedRun.Models.Interfaces;
 
 namespace SpeedRun.Models.Models.Product
 {
-    public class Product
+    public class Product : IIncludeObject
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -18,12 +21,15 @@ namespace SpeedRun.Models.Models.Product
         public double Taxes { get; set; }
         public int DeliveryTime { get; set; }
         public bool Active { get; set; }
-        public int Inventory { get; set; }
+        public int Inventory => GetInventory();
 
         public List<Screenshot> Screenshots { get; set; }
         public List<Video> Videos { get; set; }
         public List<OrderedProduct> OrderedProducts { get; set; }
+        public List<InventoryOperation> InventoryOperations { get; set; }
         public Franchise Franchise { get; set; }
+
+
 
         // Many to many
         public List<ProductDeveloper> Developers { get; set; }
@@ -33,7 +39,7 @@ namespace SpeedRun.Models.Models.Product
         public List<ProductGenre> Genres { get; set; }
         public List<ProductTheme> Themes { get; set; }
 
-        public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active, int inventory)
+        public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active)
         {
             Name = name;
             Summary = summary;
@@ -47,7 +53,25 @@ namespace SpeedRun.Models.Models.Product
             Taxes = taxes;
             DeliveryTime = deliveryTime;
             Active = active;
-            Inventory = inventory;
+        }
+
+        public Product()
+        {
+        }
+
+        private int GetInventory()
+        {
+            if (InventoryOperations != null)
+            {
+                return InventoryOperations.Count(x => x.OperationType == OperationType.Add) - 
+                       InventoryOperations.Count(x => x.OperationType == OperationType.Withdraw);
+            }
+            return 0;
+        }
+
+        public List<string> IncludesNeeded()
+        {
+            return new List<string>{ "InventoryOperations" };
         }
 
         public Product()

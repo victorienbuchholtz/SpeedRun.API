@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpeedRun.Models.Models;
 
 namespace SpeedRun.Models.Migrations
 {
     [DbContext(typeof(SpeedRunDbContext))]
-    partial class SpeedRunDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190121150823_addInventoryOperation")]
+    partial class addInventoryOperation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

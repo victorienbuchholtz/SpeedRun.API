@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
+using Microsoft.AspNetCore.JsonPatch;
 using SpeedRun.RepositoryGeneric.Interface;
 using SpeedRun.ServiceGeneric.Interface;
 
@@ -38,6 +40,13 @@ namespace SpeedRun.ServiceGeneric
         public void Delete(T obj)
         {
             Repo.Delete(obj);
+        }
+
+        public T Patch(JsonPatchDocument<T> tPatch, Guid id)
+        {
+            var idProperty = typeof(T).GetProperty("Id");
+            var obj = Get(x => (Guid) idProperty.GetValue(x) == id);
+            return Repo.Patch(tPatch, obj);
         }
     }
 }

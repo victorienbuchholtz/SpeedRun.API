@@ -4,6 +4,7 @@ using SpeedRun.ServiceGeneric.Interface;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
+using Microsoft.AspNetCore.JsonPatch;
 
 namespace SpeedRun.ControllerGeneric
 {
@@ -40,6 +41,28 @@ namespace SpeedRun.ControllerGeneric
             }
 
             return BadRequest($"{typeof(T)} already exist !");
+        }
+
+        [HttpDelete("{id}")]
+        public virtual IActionResult Delete(Guid id)
+        {
+            PropertyInfo idProperty = typeof(T).GetProperty("Id");
+            var obj = service.Get(x => (Guid)idProperty.GetValue(x) == id);
+            if (obj != null)
+            {
+                service.Delete(obj);
+            }
+            else
+            {
+                return BadRequest("Invalid id");
+            }
+            return NoContent();
+        }
+
+        [HttpPatch("{id}")]
+        public virtual T Patch(Guid id, [FromBody] JsonPatchDocument<T> tPatch)
+        {
+            return service.Patch(tPatch, id);
         }
     }
 }

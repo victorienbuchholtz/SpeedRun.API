@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using SpeedRun.Models.Interfaces;
 
 namespace SpeedRun.Models.Models
 {
-    public class DeliveryAddress
+    public class DeliveryAddress : IIncludeObject
     {
         public Guid Id { get; set; }
         public bool DefaultAddress { get; set; }
@@ -16,5 +17,9 @@ namespace SpeedRun.Models.Models
 
         public User User { get; set; }
         public List<Order> Orders { get; set; }
+        public List<string> IncludesNeeded()
+        {
+            return new List<string>();
+        }
     }
 }

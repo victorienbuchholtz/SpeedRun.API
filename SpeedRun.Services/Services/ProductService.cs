@@ -11,5 +11,23 @@ namespace SpeedRun.Services.Services
         public ProductService(IRepositoryGeneric<Product> repo) : base(repo)
         {
         }
+
+        public Product ManageInventory(Product product, bool add)
+        {
+            /*
+            if (add)
+            {
+                product.Inventory++;
+            }
+            else
+            {
+                if (product.Inventory > 0)
+                {
+                    product.Inventory--;
+                }
+            }
+            */
+            return product;
+        }
     }
 }
