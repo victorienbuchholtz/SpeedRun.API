@@ -73,9 +73,5 @@ namespace SpeedRun.Models.Models.Product
         {
             return new List<string>{ "InventoryOperations" };
         }
-
-        public Product()
-        {
-        }
     }
 }

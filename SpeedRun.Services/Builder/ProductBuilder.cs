@@ -9,12 +9,15 @@ namespace SpeedRun.Services.Builder
 
         public Product BuildProduct(IgdbGame game)
         {
-            Product product = new Product();
-            product.Name = game.name;
-            product.Summary = game.summary;
-            product.TotalRating = (int)game.rating;
-            product.FirstReleaseDate = UnixTimestampToDateTime(game.first_release_date);
-            product.CoverUrl = game.cover.url;
+            Product product = new Product
+            {
+                Name = game.name,
+                Summary = game.summary,
+                TotalRating = (int)game.rating,
+                FirstReleaseDate = UnixTimestampToDateTime(game.first_release_date),
+                CoverUrl = game.cover.url
+            };
+
             foreach (IgdbScreenshot screenshot in game.screenshots)
             {
                 Screenshot s = new Screenshot();

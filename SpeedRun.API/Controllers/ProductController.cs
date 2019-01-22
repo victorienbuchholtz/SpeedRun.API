@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpeedRun.API.Factories;
 using SpeedRun.API.Models;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Interfaces;
 using SpeedRun.Services.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
