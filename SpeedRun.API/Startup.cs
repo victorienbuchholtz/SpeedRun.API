@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Linq;
 using SpeedRun.API.Bootstrap;
 using SpeedRun.Models.Models;
+using SpeedRun.Services.Services;
 
 namespace SpeedRun.API
 {
@@ -85,6 +87,15 @@ namespace SpeedRun.API
             DependencyInjector.InjectRepositories(services);
             DependencyInjector.InjectServices(services);
 
+            services.AddHttpClient();
+
+            services.AddHttpClient<IgdbService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api-v3.igdb.com");
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+                client.DefaultRequestHeaders.Add("user-key", Configuration["Igdb:UserKey"]);
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddCors();
@@ -108,12 +119,12 @@ namespace SpeedRun.API
             app.UseAuthentication();
 
             app.UseCors(builder =>
-                builder.WithOrigins("http://localhost:4200")
+                builder
+                    .AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
             );
-
 
             app.UseMvc(routes =>
             {

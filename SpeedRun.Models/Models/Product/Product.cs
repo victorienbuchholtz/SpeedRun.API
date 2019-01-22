@@ -49,5 +49,9 @@ namespace SpeedRun.Models.Models.Product
             Active = active;
             Inventory = inventory;
         }
+
+        public Product()
+        {
+        }
     }
 }
