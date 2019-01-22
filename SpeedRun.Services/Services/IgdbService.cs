@@ -18,7 +18,7 @@ namespace SpeedRun.Services.Services
             _client = client;
         }
 
-        public async Task<List<string>> GetSimilarProductNameAsync(string name)
+        public async Task<List<IgdbGameMinified>> GetSimilarProductNameAsync(string name)
         {
             var response = await _client.PostAsync("/games/",
                 new ByteArrayContent(Encoding.UTF8.GetBytes("f name;w name~\"" + name + "\"*;"))); 
@@ -26,14 +26,10 @@ namespace SpeedRun.Services.Services
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadAsStringAsync();
-            var resultDeserialized = JsonConvert.DeserializeObject<List<IgdbGame>>(result);
-            List<string> nameList = new List<string>();
-
-            foreach (IgdbGame game in resultDeserialized)
-                nameList.Add(game.name);
+            var resultDeserialized = JsonConvert.DeserializeObject<List<IgdbGameMinified>>(result);
 
             if (!result.Any()) return null;
-            return nameList;
+            return resultDeserialized;
         }
 
         public async Task<IgdbGame> GetGameByName(string name)
