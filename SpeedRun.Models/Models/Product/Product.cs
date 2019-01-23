@@ -21,6 +21,7 @@ namespace SpeedRun.Models.Models.Product
         public double Taxes { get; set; }
         public int DeliveryTime { get; set; }
         public bool Active { get; set; }
+        public bool Featured { get; set; }
         public int Inventory => GetInventory();
 
         public int IgdbId { get; set; }
@@ -30,7 +31,7 @@ namespace SpeedRun.Models.Models.Product
         public List<OrderedProduct> OrderedProducts { get; set; }
         public List<InventoryOperation> InventoryOperations { get; set; }
         public Franchise Franchise { get; set; }
-
+        public List<Basket> Baskets { get; set; }
 
 
         // Many to many
@@ -41,7 +42,7 @@ namespace SpeedRun.Models.Models.Product
         public List<ProductGenre> Genres { get; set; }
         public List<ProductTheme> Themes { get; set; }
 
-        public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active)
+        public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active, bool featured)
         {
             Name = name;
             Summary = summary;
@@ -55,6 +56,7 @@ namespace SpeedRun.Models.Models.Product
             Taxes = taxes;
             DeliveryTime = deliveryTime;
             Active = active;
+            Featured = featured;
         }
 
         public Product()
@@ -73,7 +75,7 @@ namespace SpeedRun.Models.Models.Product
 
         public List<string> IncludesNeeded()
         {
-            return new List<string>{ "InventoryOperations" };
+            return new List<string>{ "InventoryOperations", "Screenshots" };
         }
     }
 }

@@ -20,6 +20,7 @@ namespace SpeedRun.API.Bootstrap
             services.AddScoped<IRepositoryGeneric<DeliveryAddress>, SpeedRunRepository<DeliveryAddress>>();
             services.AddScoped<IRepositoryGeneric<InventoryOperation>, SpeedRunRepository<InventoryOperation>>();
             services.AddScoped<IRepositoryGeneric<Screenshot>, SpeedRunRepository<Screenshot>>();
+            services.AddScoped<IRepositoryGeneric<Basket>, SpeedRunRepository<Basket>>();
         }
 
         public static void InjectServices(IServiceCollection services)
@@ -31,6 +32,7 @@ namespace SpeedRun.API.Bootstrap
             services.AddScoped<IDeliveryAddressService, DeliveryAddressService>();
             services.AddScoped<IInventoryOperationService, InventoryOperationService>();
             services.AddScoped<IScreenshotService, ScreenshotService>();
+            services.AddScoped<IBasketService, BasketService>();
         }
     }
 }

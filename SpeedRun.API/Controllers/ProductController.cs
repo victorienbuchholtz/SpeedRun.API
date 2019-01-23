@@ -89,5 +89,10 @@ namespace SpeedRun.API.Controllers
             return service.GetAll(x => x.Active);
         }
 
+        [HttpGet("Featured")]
+        public List<Product> Featured()
+        {
+            return service.GetAll(x => x.Active && x.Featured);
+        }
     }
 }

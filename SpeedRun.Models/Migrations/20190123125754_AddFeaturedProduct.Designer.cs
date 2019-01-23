@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpeedRun.Models.Models;
 
 namespace SpeedRun.Models.Migrations
 {
     [DbContext(typeof(SpeedRunDbContext))]
-    partial class SpeedRunDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190123125754_AddFeaturedProduct")]
+    partial class AddFeaturedProduct
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -100,26 +102,6 @@ namespace SpeedRun.Models.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("SpeedRun.Models.Models.Basket", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<bool>("Archived");
-
-                    b.Property<Guid>("ProductId");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Basket");
                 });
 
             modelBuilder.Entity("SpeedRun.Models.Models.Company", b =>
@@ -614,19 +596,6 @@ namespace SpeedRun.Models.Migrations
                 {
                     b.HasOne("SpeedRun.Models.Models.User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SpeedRun.Models.Models.Basket", b =>
-                {
-                    b.HasOne("SpeedRun.Models.Models.Product.Product", "Product")
-                        .WithMany("Baskets")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SpeedRun.Models.Models.User", "User")
-                        .WithMany("Baskets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
