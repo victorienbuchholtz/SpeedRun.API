@@ -31,7 +31,7 @@ namespace SpeedRun.Models.Models.Product
         public List<OrderedProduct> OrderedProducts { get; set; }
         public List<InventoryOperation> InventoryOperations { get; set; }
         public Franchise Franchise { get; set; }
-
+        public List<Basket> Baskets { get; set; }
 
 
         // Many to many

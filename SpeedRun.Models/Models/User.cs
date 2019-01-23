@@ -17,6 +17,7 @@ namespace SpeedRun.Models.Models
 
         public List<DeliveryAddress> DeliveryAddresses { get; set; }
         public List<Order> Orders { get; set; }
+        public List<Basket> Baskets { get; set; }
         public List<string> IncludesNeeded()
         {
             return new List<string>();

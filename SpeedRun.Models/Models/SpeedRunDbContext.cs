@@ -18,6 +18,7 @@ namespace SpeedRun.Models.Models
         public virtual DbSet<Product.Product> Product { get; set; }
         public virtual DbSet<Theme> Theme { get; set; }
         public virtual DbSet<InventoryOperation> InventoryOperation { get; set; }
+        public virtual DbSet<Basket> Basket { get; set; }
 
         private const int MAX_KEY_LENGTH = 127;
 
@@ -42,6 +43,9 @@ namespace SpeedRun.Models.Models
             modelBuilder.Entity<InventoryOperation>()
                 .HasKey(t => t.Id);
 
+            modelBuilder.Entity<Basket>()
+                .HasKey(t => t.Id);
+
             modelBuilder.Entity<Value>(e => e.Property(m => m.Name).HasMaxLength(127));
             
             modelBuilder.Entity<Value>()
@@ -54,6 +58,10 @@ namespace SpeedRun.Models.Models
 
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Orders)
+                .WithOne(e => e.User);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Baskets)
                 .WithOne(e => e.User);
 
             modelBuilder.Entity<Order>()
@@ -86,6 +94,10 @@ namespace SpeedRun.Models.Models
 
             modelBuilder.Entity<Product.Product>()
                 .HasMany(e => e.OrderedProducts)
+                .WithOne(e => e.Product);
+
+            modelBuilder.Entity<Product.Product>()
+                .HasMany(e => e.Baskets)
                 .WithOne(e => e.Product);
 
             // ICI REPOSE : Les MANY TO MANY
