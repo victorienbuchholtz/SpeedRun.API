@@ -7,8 +7,8 @@ using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models;
 using SpeedRun.Services.Interfaces;
 using System;
+using System.Net.Http;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace SpeedRun.API.Controllers
 {
@@ -16,10 +16,12 @@ namespace SpeedRun.API.Controllers
     public class AuthController : ControllerGeneric<User>
     {
         private readonly IUserService _userService;
+        private readonly IHttpClientFactory _clientFactory;
 
-        public AuthController(IUserService service) : base(service)
+        public AuthController(IUserService service, IHttpClientFactory clientFactory) : base(service)
         {
             _userService = service;
+            _clientFactory = clientFactory;
         }
 
         [Route("signin")]
@@ -53,14 +55,11 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("authenticate")]
+        [Authorize]
         public User Authenticate()
         {
-            if (User.Identity.IsAuthenticated)
-            {
-                User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
-                return user;
-            }
-            return null;
+            User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+            return user;
         }
 
         [Route("signout")]

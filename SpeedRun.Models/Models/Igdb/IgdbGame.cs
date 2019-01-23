@@ -1,10 +1,13 @@
-﻿public class IgdbGame
+﻿namespace SpeedRun.Models.Models.Igdb
 {
-    public int id { get; set; }
-    public IgdbScreenshot cover { get; set; }
-    public int first_release_date { get; set; }
-    public string name { get; set; }
-    public float rating { get; set; }
-    public IgdbScreenshot[] screenshots { get; set; }
-    public string summary { get; set; }
+    public class IgdbGame
+    {
+        public int Id { get; set; }
+        public IgdbScreenshot Cover { get; set; }
+        public int First_release_date { get; set; }
+        public string Name { get; set; }
+        public float Rating { get; set; }
+        public IgdbScreenshot[] Screenshots { get; set; }
+        public string Summary { get; set; }
+    }
 }

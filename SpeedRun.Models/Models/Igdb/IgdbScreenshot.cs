@@ -1,5 +1,8 @@
-﻿public class IgdbScreenshot
+﻿namespace SpeedRun.Models.Models.Igdb
 {
-    public int id { get; set; }
-    public string url { get; set; }
+    public class IgdbScreenshot
+    {
+        public int Id { get; set; }
+        public string Url { get; set; }
+    }
 }

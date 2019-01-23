@@ -1,4 +1,5 @@
 ﻿using SpeedRun.Models.Models;
+using SpeedRun.Models.Models.Igdb;
 using SpeedRun.Models.Models.Product;
 using System;
 using System.Collections.Generic;
@@ -12,25 +13,29 @@ namespace SpeedRun.Services.Builder
         {
             Product product = new Product
             {
-                Name = game.name,
-                Summary = game.summary,
-                TotalRating = (int)game.rating,
-                FirstReleaseDate = UnixTimestampToDateTime(game.first_release_date),
-                IgdbId = game.id
+                Name = game.Name,
+                Summary = game.Summary,
+                TotalRating = (int)game.Rating,
+                FirstReleaseDate = UnixTimestampToDateTime(game.First_release_date),
+                IgdbId = game.Id
             };
-            if(game.cover != null)
-                product.CoverUrl = ReplaceScreenSize("screenshot_big", game.cover.url);
 
-            if (game.screenshots != null)
+            if(game.Cover != null && game.Cover.Url != null)
+                product.CoverUrl = ReplaceScreenSize("screenshot_big", game.Cover.Url);
+
+            if (game.Screenshots != null)
             {
                 product.Screenshots = new List<Screenshot>();
-                foreach (IgdbScreenshot screenshot in game.screenshots)
+                foreach (IgdbScreenshot screenshot in game.Screenshots)
                 {
-                    Screenshot screen = new Screenshot
+                    if (screenshot.Url != null)
                     {
-                        ScreenshotUrl = ReplaceScreenSize("screenshot_huge", screenshot.url)
-                    };
-                    product.Screenshots.Add(screen);
+                        Screenshot screen = new Screenshot
+                        {
+                            ScreenshotUrl = ReplaceScreenSize("screenshot_huge", screenshot.Url)
+                        };
+                        product.Screenshots.Add(screen);
+                    }
                 }
             }
 
