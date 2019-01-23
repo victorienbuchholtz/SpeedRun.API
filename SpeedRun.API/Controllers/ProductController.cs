@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SpeedRun.API.Factories;
-using SpeedRun.API.Models;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models;
+using SpeedRun.Models.Models.Igdb;
 using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Interfaces;
 using SpeedRun.Services.Services;
@@ -32,6 +33,7 @@ namespace SpeedRun.API.Controllers
         }
 
         [HttpGet("GetSimilarProductName")]
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public async Task<List<IgdbGameMinified>> GetSimilarProductName(string name)
         {
             return await _igdbService.GetSimilarProductNameAsync(name);
@@ -55,25 +57,17 @@ namespace SpeedRun.API.Controllers
         [HttpPost("ProductName")]
         public async Task<Product> Add([FromBody]IgdbGameMinified igdbGameMinified)
         {
-            // TOOD : IMPLEMENTER
-            // Vérifie si le jeu n'est pas déjà en base si c'est le cas soit on fait une erreur soit on fait un +1 dans l'inventaire
-            // CALL IGDB API récupère les infos du jeu etc
-            // on créait un product ( avec tout ce qu'il faut les screens etc... ) 
-            // on ajoute en base
-            // ( on peut appeler différent service si il le faut pour ajouter en base ce qu'on a besoin )
-            // on retourne le product ( tu peux retourner juste le product pas besoin de retourner les collections avec si ça te fais chier )
-
-
-            var dbProduct = service.Get(x => x.IgdbId == igdbGameMinified.id);
+            var dbProduct = service.Get(x => x.IgdbId == igdbGameMinified.Id);
             if (dbProduct != null) return dbProduct;
 
-            var product = await _igdbService.GetGameById(igdbGameMinified.id);
+            var product = await _igdbService.GetGameById(igdbGameMinified.Id);
 
             if (product.Screenshots != null)
                 foreach (Screenshot screenshot in product.Screenshots)
                     _screenshotService.Add(screenshot);
 
             product.DeliveryTime = 2;
+            product.Taxes = 20;
 
             _productService.Add(product);
 

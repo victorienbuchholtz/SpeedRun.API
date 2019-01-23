@@ -1,5 +1,8 @@
-﻿public class IgdbGameMinified
+﻿namespace SpeedRun.Models.Models.Igdb
 {
-    public int id { get; set; }
-    public string name { get; set; }
+    public class IgdbGameMinified
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

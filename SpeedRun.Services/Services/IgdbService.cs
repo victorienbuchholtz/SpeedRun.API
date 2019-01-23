@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SpeedRun.Models.Models.Igdb;
 using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Builder;
 using System.Collections.Generic;
@@ -43,6 +44,7 @@ namespace SpeedRun.Services.Services
             var res = JsonConvert.DeserializeObject<List<IgdbGame>>(result);
 
             if (!result.Any()) return null;
+
             ProductBuilder p = new ProductBuilder();
             Product test = p.BuildProduct(res.First());
             return test;
