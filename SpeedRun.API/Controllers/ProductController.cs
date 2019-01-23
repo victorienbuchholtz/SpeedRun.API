@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Igdb;
@@ -9,7 +7,6 @@ using SpeedRun.Services.Interfaces;
 using SpeedRun.Services.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -36,14 +33,6 @@ namespace SpeedRun.API.Controllers
         public async Task<List<IgdbGameMinified>> GetSimilarProductName(string name)
         {
             return await _igdbService.GetSimilarProductNameAsync(name);
-        }
-
-        [HttpGet("GetSimilarDbProductName")]
-        public List<string> GetSimilarDbProductName(string name)
-        {
-            var products = service.GetAll(x => x.Name.Contains(name));
-            var productNames = products.Select(x => x.Name).ToList();
-            return productNames;
         }
 
         [HttpGet("GetSimilarDbProduct")]

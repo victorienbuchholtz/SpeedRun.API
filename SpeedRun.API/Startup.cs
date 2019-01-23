@@ -84,12 +84,6 @@ namespace SpeedRun.API
                     };
                 });
 
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
-                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
-            });
-
             services.AddDbContext<SpeedRunDbContext>(options => options.UseMySql(Configuration.GetConnectionString("SpeedRun")));
 
             DependencyInjector.InjectRepositories(services);
@@ -120,7 +114,11 @@ namespace SpeedRun.API
                 var policy = new AuthorizationPolicyBuilder()
                                  .RequireAuthenticatedUser()
                                  .Build();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -143,8 +141,7 @@ namespace SpeedRun.API
             app.UseCors(builder => builder
                             .AllowAnyOrigin()
                             .AllowAnyHeader()
-                            .AllowAnyOrigin()
-                            .SetPreflightMaxAge(TimeSpan.FromMinutes(666)));
+                            .AllowAnyOrigin());
 
             app.UseMvc(routes =>
             {
