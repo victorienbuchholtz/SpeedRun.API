@@ -25,7 +25,7 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("signin")]
-        public IActionResult SignIn(string returnUrl = "/auth/signinconfirmed")
+        public IActionResult SignIn(string returnUrl = "auth/signinconfirmed")
         {
             return Challenge(new AuthenticationProperties { RedirectUri = returnUrl });
         }
@@ -55,7 +55,6 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("authenticate")]
-        [Authorize]
         public User Authenticate()
         {
             User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
