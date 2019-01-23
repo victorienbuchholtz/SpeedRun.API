@@ -1,8 +1,10 @@
-﻿using System;
+﻿using SpeedRun.Models.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace SpeedRun.Models.Models
 {
-    public class Basket
+    public class Basket : IIncludeObject
     {
         public Guid Id { get; set; }
 
@@ -13,5 +15,10 @@ namespace SpeedRun.Models.Models
         public Product.Product Product { get; set; }
 
         public Boolean Archived { get; set; }
+
+        public List<string> IncludesNeeded()
+        {
+            return new List<string>();
+        }
     }
 }
