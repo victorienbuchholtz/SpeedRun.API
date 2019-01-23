@@ -26,5 +26,9 @@ namespace SpeedRun.Models.Models
             User = user;
             Product = product;
         }
+
+        public Basket()
+        {
+        }
     }
 }
