@@ -33,7 +33,6 @@ namespace SpeedRun.API.Controllers
         }
 
         [HttpGet("GetSimilarProductName")]
-        [Authorize]
         public async Task<List<IgdbGameMinified>> GetSimilarProductName(string name)
         {
             return await _igdbService.GetSimilarProductNameAsync(name);

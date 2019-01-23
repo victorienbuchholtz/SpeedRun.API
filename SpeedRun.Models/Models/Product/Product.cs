@@ -75,7 +75,7 @@ namespace SpeedRun.Models.Models.Product
 
         public List<string> IncludesNeeded()
         {
-            return new List<string>{ "InventoryOperations" };
+            return new List<string>{ "InventoryOperations", "Screenshots" };
         }
     }
 }
