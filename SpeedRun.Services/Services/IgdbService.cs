@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
-using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Product;
+using SpeedRun.Services.Builder;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -32,41 +32,20 @@ namespace SpeedRun.Services.Services
             return resultDeserialized;
         }
 
-        public async Task<IgdbGame> GetGameByName(string name)
+        public async Task<Product> GetGameById(int id)
         {
             var response = await _client.PostAsync("/games/",
-                new ByteArrayContent(Encoding.UTF8.GetBytes("f name,first_release_date,summary,rating,cover.url,screenshots.url;w name~\"" + name + "\"*;")));
+                new ByteArrayContent(Encoding.UTF8.GetBytes("f name,first_release_date,summary,rating,cover.url,screenshots.url;w id=" + id + ";")));
 
             response.EnsureSuccessStatusCode();
 
             var result = await response.Content.ReadAsStringAsync();
             var res = JsonConvert.DeserializeObject<List<IgdbGame>>(result);
 
-
             if (!result.Any()) return null;
-            return res.First();
-        }
-
-        public async Task<Product> GetGameById(int id)
-        {
-            var response = await _client.GetAsync("/games/" + id);
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadAsAsync<IEnumerable<Product>>();
-            if (!result.Any()) return null;
-
-            return result.First();
-        }
-
-        public async Task<IEnumerable<Product>> GetPopularGames(int platformId, int limit = 10)
-        {
-            var response = await _client.GetAsync($"/games/?fields=name,url,summary&order=popularity:desc&filter[platforms][eq]={platformId}&limit={limit}");
-            response.EnsureSuccessStatusCode();
-
-            var result = await response.Content.ReadAsAsync<IEnumerable<Product>>();
-            if (!result.Any()) return null;
-
-            return result;
+            ProductBuilder p = new ProductBuilder();
+            Product test = p.BuildProduct(res.First());
+            return test;
         }
     }
 }

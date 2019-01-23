@@ -1,6 +1,7 @@
 ﻿using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Product;
 using System;
+using System.Collections.Generic;
 
 namespace SpeedRun.Services.Builder
 {
@@ -15,17 +16,30 @@ namespace SpeedRun.Services.Builder
                 Summary = game.summary,
                 TotalRating = (int)game.rating,
                 FirstReleaseDate = UnixTimestampToDateTime(game.first_release_date),
-                CoverUrl = game.cover.url
+                IgdbId = game.id
             };
+            if(game.cover != null)
+                product.CoverUrl = ReplaceScreenSize("screenshot_big", game.cover.url);
 
-            foreach (IgdbScreenshot screenshot in game.screenshots)
+            if (game.screenshots != null)
             {
-                Screenshot s = new Screenshot();
-                s.ScreenshotUrl = screenshot.url;
-                
+                product.Screenshots = new List<Screenshot>();
+                foreach (IgdbScreenshot screenshot in game.screenshots)
+                {
+                    Screenshot screen = new Screenshot
+                    {
+                        ScreenshotUrl = ReplaceScreenSize("screenshot_huge", screenshot.url)
+                    };
+                    product.Screenshots.Add(screen);
+                }
             }
 
             return product;
+        }
+
+        public string ReplaceScreenSize(string screenSize, string url)
+        {
+            return url.Replace("thumb", screenSize);
         }
 
         public DateTime UnixTimestampToDateTime(int timestamp)

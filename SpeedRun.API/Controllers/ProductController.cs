@@ -2,6 +2,7 @@
 using SpeedRun.API.Factories;
 using SpeedRun.API.Models;
 using SpeedRun.ControllerGeneric;
+using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Interfaces;
 using SpeedRun.Services.Services;
@@ -17,14 +18,17 @@ namespace SpeedRun.API.Controllers
     public class ProductController : ControllerGeneric<Product>
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly IgdbService _igdbService;
         private readonly IProductService _productService;
+        private readonly IScreenshotService _screenshotService;
 
-        public ProductController(IProductService service, IHttpClientFactory clientFactory, IgdbService igdbService) : base(service)
+        private readonly IgdbService _igdbService;
+
+        public ProductController(IProductService service, IHttpClientFactory clientFactory, IScreenshotService screenshotService, IgdbService igdbService) : base(service)
         {
             _clientFactory = clientFactory;
             _igdbService = igdbService;
             _productService = service;
+            _screenshotService = screenshotService;
         }
 
         [HttpGet("GetSimilarProductName")]
@@ -49,7 +53,7 @@ namespace SpeedRun.API.Controllers
 
 
         [HttpPost("ProductName")]
-        public Product Add([FromBody]ProductAddModel productAddModel)
+        public async Task<Product> Add([FromBody]IgdbGameMinified igdbGameMinified)
         {
             // TOOD : IMPLEMENTER
             // Vérifie si le jeu n'est pas déjà en base si c'est le cas soit on fait une erreur soit on fait un +1 dans l'inventaire
@@ -58,11 +62,21 @@ namespace SpeedRun.API.Controllers
             // on ajoute en base
             // ( on peut appeler différent service si il le faut pour ajouter en base ce qu'on a besoin )
             // on retourne le product ( tu peux retourner juste le product pas besoin de retourner les collections avec si ça te fais chier )
-            var dbProduct = service.Get(x => x.Name == productAddModel.name);
+
+
+            var dbProduct = service.Get(x => x.IgdbId == igdbGameMinified.id);
             if (dbProduct != null) return dbProduct;
 
-            var product = ProductFactory.GetProduct(productAddModel.name);
-            service.Add(product);
+            var product = await _igdbService.GetGameById(igdbGameMinified.id);
+
+            if (product.Screenshots != null)
+                foreach (Screenshot screenshot in product.Screenshots)
+                    _screenshotService.Add(screenshot);
+
+            product.DeliveryTime = 2;
+
+            _productService.Add(product);
+
             return product;
         }
 
