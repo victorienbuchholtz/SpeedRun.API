@@ -85,7 +85,6 @@ namespace SpeedRun.API
 
             services.AddMvc().AddJsonOptions(options =>
             {
-                //options.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
                 options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
             });
