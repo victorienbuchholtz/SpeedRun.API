@@ -5,11 +5,13 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -96,9 +98,23 @@ namespace SpeedRun.API
                 client.DefaultRequestHeaders.Add("user-key", Configuration["Igdb:UserKey"]);
             });
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ContactInfoCorsPolicy",
+                   builder => builder
+                               .AllowAnyOrigin()
+                               .AllowAnyMethod()
+                               .AllowAnyHeader()
+                               .AllowCredentials()
+                            );
+            });
 
-            services.AddCors();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                 .RequireAuthenticatedUser()
+                                 .Build();
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -118,13 +134,11 @@ namespace SpeedRun.API
 
             app.UseAuthentication();
 
-            app.UseCors(builder =>
-                builder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .AllowCredentials()
-            );
+            app.UseCors(builder => builder
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyOrigin()
+                            .SetPreflightMaxAge(TimeSpan.FromMinutes(666)));
 
             app.UseMvc(routes =>
             {

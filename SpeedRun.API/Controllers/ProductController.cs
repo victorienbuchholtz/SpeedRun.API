@@ -32,8 +32,8 @@ namespace SpeedRun.API.Controllers
             _screenshotService = screenshotService;
         }
 
+        [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         [HttpGet("GetSimilarProductName")]
-        [Authorize]
         public async Task<List<IgdbGameMinified>> GetSimilarProductName(string name)
         {
             return await _igdbService.GetSimilarProductNameAsync(name);
