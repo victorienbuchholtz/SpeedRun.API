@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace SpeedRun.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     public class ProductController : ControllerGeneric<Product>
     {
         private readonly IHttpClientFactory _clientFactory;

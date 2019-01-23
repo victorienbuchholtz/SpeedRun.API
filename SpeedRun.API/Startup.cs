@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +18,6 @@ using Newtonsoft.Json.Linq;
 using SpeedRun.API.Bootstrap;
 using SpeedRun.Models.Models;
 using SpeedRun.Services.Services;
-using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
 
 namespace SpeedRun.API
 {
@@ -40,11 +39,11 @@ namespace SpeedRun.API
                 .AddDefaultTokenProviders();
 
             services.AddAuthentication(options =>
-                {
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = "GitHub";
-                })
+            {
+                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = "GitHub";
+            })
                 .AddCookie()
                 .AddOAuth("GitHub", options =>
                 {
@@ -84,6 +83,12 @@ namespace SpeedRun.API
                     };
                 });
 
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
+            });
+
             services.AddDbContext<SpeedRunDbContext>(options => options.UseMySql(Configuration.GetConnectionString("SpeedRun")));
 
             DependencyInjector.InjectRepositories(services);
@@ -98,27 +103,9 @@ namespace SpeedRun.API
                 client.DefaultRequestHeaders.Add("user-key", Configuration["Igdb:UserKey"]);
             });
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("ContactInfoCorsPolicy",
-                   builder => builder
-                               .AllowAnyOrigin()
-                               .AllowAnyMethod()
-                               .AllowAnyHeader()
-                               .AllowCredentials()
-                            );
-            });
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddMvc(config =>
-            {
-                var policy = new AuthorizationPolicyBuilder()
-                                 .RequireAuthenticatedUser()
-                                 .Build();
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_1).AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
-                options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.Objects;
-            }); ;
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,10 +125,13 @@ namespace SpeedRun.API
 
             app.UseAuthentication();
 
-            app.UseCors(builder => builder
-                            .AllowAnyOrigin()
-                            .AllowAnyHeader()
-                            .AllowAnyOrigin());
+            app.UseCors(builder =>
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+            );
 
             app.UseMvc(routes =>
             {
