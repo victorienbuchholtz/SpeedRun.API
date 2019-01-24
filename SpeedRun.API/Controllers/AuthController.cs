@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SpeedRun.ControllerGeneric;
@@ -39,8 +40,8 @@ namespace SpeedRun.API.Controllers
                 user.IDGitHub = User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
                 user.FirstName = User.FindFirst(c => c.Type == ClaimTypes.Name)?.Value;
                 user.AvatarUrl = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
-                //user.Email = User.FindFirst(c => c.Type == "urn:github:email")?.Value;
-                //user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+                user.Email = User.FindFirst(c => c.Type == "urn:github:email")?.Value;
+                user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
 
                 if (user.Id == Guid.Empty)
                     service.Add(user);

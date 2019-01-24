@@ -18,9 +18,6 @@ namespace SpeedRun.Models.Models
 
         public List<string> IncludesNeeded()
         {
-<<<<<<< HEAD
-            return new List<string>();
-=======
             return new List<string>{"Product"};
         }
 
@@ -28,7 +25,10 @@ namespace SpeedRun.Models.Models
         {
             User = user;
             Product = product;
->>>>>>> parent of da07533... fix
+        }
+
+        public Basket()
+        {
         }
     }
 }

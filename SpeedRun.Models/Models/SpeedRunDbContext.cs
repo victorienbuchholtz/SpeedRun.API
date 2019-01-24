@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SpeedRun.Models.Models.Product;
 
 namespace SpeedRun.Models.Models
 {
-    public class SpeedRunDbContext : IdentityDbContext
+    public class SpeedRunDbContext : IdentityDbContext<User,Role,Guid>
     {
-        public SpeedRunDbContext(DbContextOptions options) : base(options) { }
+        public SpeedRunDbContext(DbContextOptions<SpeedRunDbContext> options)
+            : base(options)
+        { }
 
         public virtual DbSet<Value> Values { get; set; }
         public virtual DbSet<User> User { get; set; }
@@ -176,32 +180,32 @@ namespace SpeedRun.Models.Models
                 .HasForeignKey(bc => bc.CompanyId);
 
             // ICI REPOSE : Les longueurs pas cool
-            //modelBuilder.Entity<User>(e =>
-            //{
-            //    e.Property(m => m.UserName).HasMaxLength(MAX_KEY_LENGTH);
-            //    e.Property(m => m.NormalizedUserName).HasMaxLength(MAX_KEY_LENGTH);
-            //    e.Property(m => m.Email).HasMaxLength(MAX_KEY_LENGTH);
-            //    e.Property(m => m.NormalizedEmail).HasMaxLength(MAX_KEY_LENGTH);
-            //});
+            modelBuilder.Entity<User>(e =>
+            {
+                e.Property(m => m.UserName).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedUserName).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.Email).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedEmail).HasMaxLength(MAX_KEY_LENGTH);
+            });
 
-            //modelBuilder.Entity<Role>(e =>
-            //{
-            //    e.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
-            //    e.Property(m => m.NormalizedName).HasMaxLength(MAX_KEY_LENGTH);
-            //});
+            modelBuilder.Entity<Role>(e =>
+            {
+                e.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
+                e.Property(m => m.NormalizedName).HasMaxLength(MAX_KEY_LENGTH);
+            });
 
-            //modelBuilder.Entity<IdentityUserLogin<Guid>>(entity =>
-            //{
-            //    entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
-            //    entity.Property(m => m.ProviderKey).HasMaxLength(MAX_KEY_LENGTH);
-            //});
+            modelBuilder.Entity<IdentityUserLogin<Guid>>(entity =>
+            {
+                entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
+                entity.Property(m => m.ProviderKey).HasMaxLength(MAX_KEY_LENGTH);
+            });
 
-            //modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
-            //{
-            //    entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
-            //    entity.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
+            modelBuilder.Entity<IdentityUserToken<Guid>>(entity =>
+            {
+                entity.Property(m => m.LoginProvider).HasMaxLength(MAX_KEY_LENGTH);
+                entity.Property(m => m.Name).HasMaxLength(MAX_KEY_LENGTH);
 
-            //});
+            });
         }
     }
 }

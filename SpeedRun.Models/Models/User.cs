@@ -1,14 +1,12 @@
-﻿using SpeedRun.Models.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity;
+using SpeedRun.Models.Interfaces;
 
 namespace SpeedRun.Models.Models
 {
-    public class User : IIncludeObject
+    public class User : IdentityUser<Guid>, IIncludeObject
     {
-        public Guid Id { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Mail { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string ZipCode { get; set; }
