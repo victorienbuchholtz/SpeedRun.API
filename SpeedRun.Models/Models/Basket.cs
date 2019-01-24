@@ -18,17 +18,7 @@ namespace SpeedRun.Models.Models
 
         public List<string> IncludesNeeded()
         {
-            return new List<string>{"Product"};
-        }
-
-        public Basket(User user, Product.Product product)
-        {
-            User = user;
-            Product = product;
-        }
-
-        public Basket()
-        {
+            return new List<string>();
         }
     }
 }
