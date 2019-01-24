@@ -29,6 +29,8 @@ namespace SpeedRun.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(options =>
@@ -75,15 +77,15 @@ namespace SpeedRun.API
                 });
             });
 
-            DependencyInjector.InjectRepositories(services);
-            DependencyInjector.InjectServices(services);
-
             services.AddHttpClient<IgdbService>(client =>
             {
                 client.BaseAddress = new Uri("https://api-v3.igdb.com");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
                 client.DefaultRequestHeaders.Add("user-key", Configuration["Igdb:UserKey"]);
             });
+
+            DependencyInjector.InjectRepositories(services);
+            DependencyInjector.InjectServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -95,6 +97,13 @@ namespace SpeedRun.API
             }
 
             app.UseMvc();
+            app.UseCors(builder => 
+                builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+
 
             context.Database.EnsureCreated();
         }

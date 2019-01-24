@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SpeedRun.Models.Models.Product;
 
@@ -8,9 +6,7 @@ namespace SpeedRun.Models.Models
 {
     public class SpeedRunDbContext : IdentityDbContext
     {
-        public SpeedRunDbContext(DbContextOptions<SpeedRunDbContext> options)
-            : base(options)
-        { }
+        public SpeedRunDbContext(DbContextOptions options) : base(options) { }
 
         public virtual DbSet<Value> Values { get; set; }
         public virtual DbSet<User> User { get; set; }
