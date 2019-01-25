@@ -2,7 +2,6 @@
 using SpeedRun.ControllerGeneric;
 using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Igdb;
-using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Interfaces;
 using SpeedRun.Services.Services;
 using System;

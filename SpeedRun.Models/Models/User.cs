@@ -14,8 +14,7 @@ namespace SpeedRun.Models.Models
         public string City { get; set; }
         public string IDGitHub { get; set; }
         public string AvatarUrl { get; set; }
-
-        public List<DeliveryAddress> DeliveryAddresses { get; set; }
+        
         public List<Order> Orders { get; set; }
         public List<Basket> Baskets { get; set; }
         public List<string> IncludesNeeded()

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SpeedRun.Models.Models;
 using SpeedRun.Models.Models.Igdb;
-using SpeedRun.Models.Models.Product;
 using SpeedRun.Services.Builder;
 using System.Collections.Generic;
 using System.Linq;

@@ -55,14 +55,14 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("authenticate")]
+        //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
         public User Authenticate()
         {
             User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
             return user;
         }
 
-        [Route("signout")]
-        public IActionResult SignOut()
+        [Route("signout")]       public IActionResult SignOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("http://localhost:4200/");

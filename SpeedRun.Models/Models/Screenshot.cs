@@ -8,13 +8,13 @@ namespace SpeedRun.Models.Models
     {
         public Guid Id { get; set; }
         public string ScreenshotUrl { get; set; }
-        public Product.Product Product { get; set; }
+        public Product Product { get; set; }
 
         public Screenshot()
         {
         }
 
-        public Screenshot(Guid guid, string url, Product.Product product)
+        public Screenshot(Guid guid, string url, Product product)
         {
             this.Id = guid;
             this.ScreenshotUrl = url;

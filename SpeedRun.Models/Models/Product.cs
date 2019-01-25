@@ -4,7 +4,7 @@ using System.Linq;
 using SpeedRun.Models.Enums;
 using SpeedRun.Models.Interfaces;
 
-namespace SpeedRun.Models.Models.Product
+namespace SpeedRun.Models.Models
 {
     public class Product : IIncludeObject
     {
@@ -27,20 +27,8 @@ namespace SpeedRun.Models.Models.Product
         public int IgdbId { get; set; }
 
         public List<Screenshot> Screenshots { get; set; }
-        public List<Video> Videos { get; set; }
-        public List<OrderedProduct> OrderedProducts { get; set; }
         public List<InventoryOperation> InventoryOperations { get; set; }
-        public Franchise Franchise { get; set; }
         public List<Basket> Baskets { get; set; }
-
-
-        // Many to many
-        public List<ProductDeveloper> Developers { get; set; }
-        public List<ProductPublisher> Publishers { get; set; }
-        public List<ProductGameEngine> GameEngines { get; set; }
-        public List<ProductGameMode> GameModes { get; set; }
-        public List<ProductGenre> Genres { get; set; }
-        public List<ProductTheme> Themes { get; set; }
 
         public Product(string name, string summary, string storyLine, int totalRating, int ratingCount, DateTime firstReleaseDate, string coverUrl, int pegiRating, double price, double taxes, int deliveryTime, bool active, bool featured)
         {

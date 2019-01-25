@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SpeedRun.Models.Models;
+using System;
 using System.Collections.Generic;
-using SpeedRun.Models.Models.Product;
 
 namespace SpeedRun.API.Factories
 {

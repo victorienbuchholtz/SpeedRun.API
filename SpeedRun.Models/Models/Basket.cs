@@ -12,7 +12,7 @@ namespace SpeedRun.Models.Models
         public User User { get; set; }
 
         public Guid ProductId { get; set; }
-        public Product.Product Product { get; set; }
+        public Product Product { get; set; }
 
         public Boolean Archived { get; set; }
 
@@ -21,7 +21,7 @@ namespace SpeedRun.Models.Models
             return new List<string>{"Product"};
         }
 
-        public Basket(User user, Product.Product product)
+        public Basket(User user, Product product)
         {
             User = user;
             Product = product;

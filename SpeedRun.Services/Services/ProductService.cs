@@ -1,5 +1,4 @@
 ﻿using SpeedRun.Models.Models;
-using SpeedRun.Models.Models.Product;
 using SpeedRun.RepositoryGeneric.Interface;
 using SpeedRun.ServiceGeneric;
 using SpeedRun.Services.Interfaces;
