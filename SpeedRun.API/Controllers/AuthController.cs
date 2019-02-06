@@ -30,8 +30,12 @@ namespace SpeedRun.API.Controllers
             return Challenge(new AuthenticationProperties { RedirectUri = returnUrl });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("signinconfirmed")]
-        public IActionResult SignInConfirmed()
+        public async System.Threading.Tasks.Task<IActionResult> SignInConfirmedAsync()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -42,6 +46,8 @@ namespace SpeedRun.API.Controllers
                 user.AvatarUrl = User.FindFirst(c => c.Type == "urn:github:avatar")?.Value;
                 user.Email = User.FindFirst(c => c.Type == "urn:github:email")?.Value;
                 user.UserName = User.FindFirst(c => c.Type == "urn:github:login")?.Value;
+
+                string accessToken = await HttpContext.GetTokenAsync("access_token");
 
                 if (user.Id == Guid.Empty)
                     service.Add(user);
@@ -55,14 +61,17 @@ namespace SpeedRun.API.Controllers
         }
 
         [Route("authenticate")]
-        //[Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
-        public User Authenticate()
+        [Authorize]
+        public async System.Threading.Tasks.Task<User> AuthenticateAsync()
         {
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
+
             User user = _userService.GetByIDGitHub(User.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
             return user;
         }
 
-        [Route("signout")]       public IActionResult SignOut()
+        [Route("signout")]
+        public IActionResult SignOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Redirect("http://localhost:4200/");

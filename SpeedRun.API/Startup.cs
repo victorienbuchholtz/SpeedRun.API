@@ -1,8 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +14,10 @@ using Newtonsoft.Json.Linq;
 using SpeedRun.API.Bootstrap;
 using SpeedRun.Models.Models;
 using SpeedRun.Services.Services;
+using System;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Claims;
 
 namespace SpeedRun.API
 {
@@ -54,6 +54,8 @@ namespace SpeedRun.API
                     options.AuthorizationEndpoint = "https://github.com/login/oauth/authorize";
                     options.TokenEndpoint = "https://github.com/login/oauth/access_token";
                     options.UserInformationEndpoint = "https://api.github.com/user";
+
+                    options.SaveTokens = true;
 
                     options.ClaimActions.MapJsonKey(ClaimTypes.NameIdentifier, "id");
                     options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
