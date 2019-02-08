@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SpeedRun.Models.Interfaces;
+﻿using SpeedRun.Models.Interfaces;
 using SpeedRun.Models.Models;
 using SpeedRun.RepositoryGeneric.Repository;
 

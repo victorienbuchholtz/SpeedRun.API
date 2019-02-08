@@ -64,13 +64,13 @@ namespace SpeedRun.Services.Tests.Services
             Assert.IsNotNull(user);
         }
 
-        //[TestMethod]
-        //public void DeleteUser_ThenCheckIfItStillExists()
-        //{
-        //    ConfigureUserServiceDelete();
-        //    _userService.Delete(It.IsAny<User>());
-        //    Assert.IsNotNull(user);
-        //}
+        [TestMethod]
+        public void DeleteUser_ThenVerifyIfItIsDeleted()
+        {
+            ConfigureUserServiceDelete();
+            _userService.Delete(It.IsAny<User>());
+            _userRepo.Verify(x => x.Delete(It.IsAny<User>()), Times.Exactly(1));
+        }
 
         public void ConfigureUserServiceGet()
         {

@@ -10,7 +10,5 @@ namespace SpeedRun.Services.Services
         public InventoryOperationService(IRepositoryGeneric<InventoryOperation> repo) : base(repo)
         {
         }
-
-        
     }
 }
