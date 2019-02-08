@@ -25,14 +25,62 @@ namespace SpeedRun.Services.Tests.Services
         [TestMethod]
         public void GetByIDGitHub_ThenAUserIsreturned()
         {
-            ConfigureUserService();
+            ConfigureUserServiceGet();
             var user = _userService.GetByIDGitHub(githubId);
             Assert.IsNotNull(user);
         }
 
-        public void ConfigureUserService()
+        [TestMethod]
+        public void Get_ThenAUserIsreturned()
+        {
+            ConfigureUserServiceGet();
+            User u = new User();
+            var user = _userService.Get(It.IsAny<Expression<Func<User, bool>>>());
+            Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void Add_ThenAUserIsreturned()
+        {
+            ConfigureUserServiceGet();
+            var user = _userService.GetByIDGitHub(githubId);
+            Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void Update_ThenAUserIsreturned()
+        {
+            ConfigureUserServiceGet();
+            var user = _userService.GetByIDGitHub(githubId);
+            Assert.IsNotNull(user);
+        }
+
+        [TestMethod]
+        public void Delete_ThenAUserIsreturned()
+        {
+            ConfigureUserServiceGet();
+            var user = _userService.GetByIDGitHub(githubId);
+            Assert.IsNotNull(user);
+        }
+
+        public void ConfigureUserServiceGet()
         {
             _userRepo.Setup(x => x.Get(It.IsAny<Expression<Func<User, bool>>>())).Returns(PrepareUser());
+        }
+
+        public void ConfigureUserServiceAdd()
+        {
+            _userRepo.Setup(x => x.Add(It.IsAny<User>())).Returns(PrepareUser());
+        }
+
+        public void ConfigureUserServiceUpdate()
+        {
+            _userRepo.Setup(x => x.Update(It.IsAny<User>())).Returns(PrepareUser());
+        }
+
+        public void ConfigureUserServiceDelete()
+        {
+            _userRepo.Setup(x => x.Delete(It.IsAny<User>()));
         }
 
         public User PrepareUser()
