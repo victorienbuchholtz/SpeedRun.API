@@ -13,9 +13,9 @@ namespace SpeedRun.Services.Services
 
         public User GetByIDGitHub(string idGitHub)
         {
-            User u = Get(x => x.IDGitHub.Equals(idGitHub));
-            if (u != null)
-                return u;
+            User user = Get(x => x.IDGitHub.Equals(idGitHub));
+            if (user != null)
+                return user;
             return new User();
         }
     }

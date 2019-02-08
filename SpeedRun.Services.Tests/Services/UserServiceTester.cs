@@ -13,12 +13,14 @@ namespace SpeedRun.Services.Tests.Services
     public class UserServiceTester
     {
         private IUserService _userService;
-        private readonly Mock<IRepositoryGeneric<User>> _userRepo;
-        private string githubId = "totoAfrica";
+        private Mock<IRepositoryGeneric<User>> _userRepo;
+        private readonly string githubId = "totoAfrica";
+        private readonly string wrongGitHubId = "africaToto";
 
         [TestInitialize]
         public void Initialize()
         {
+            _userRepo = new Mock<IRepositoryGeneric<User>>();
             _userService = new UserService(_userRepo.Object);
         }
 
@@ -31,41 +33,53 @@ namespace SpeedRun.Services.Tests.Services
         }
 
         [TestMethod]
-        public void Get_ThenAUserIsreturned()
+        public void GetByIDGitHub_WithWrongIDGithub_ThenAUserIsreturned()
+        {
+            ConfigureUserServiceGetByIdGitHub();
+            var user = _userService.GetByIDGitHub(wrongGitHubId);
+            Assert.IsNull(user.Id != Guid.Empty ? user : null);
+        }
+
+        [TestMethod]
+        public void GetUser_ThenAUserIsreturned()
         {
             ConfigureUserServiceGet();
-            User u = new User();
             var user = _userService.Get(It.IsAny<Expression<Func<User, bool>>>());
             Assert.IsNotNull(user);
         }
 
         [TestMethod]
-        public void Add_ThenAUserIsreturned()
+        public void AddUser_ThenAUserIsreturned()
         {
-            ConfigureUserServiceGet();
-            var user = _userService.GetByIDGitHub(githubId);
+            ConfigureUserServiceAdd();
+            var user = _userService.Add(It.IsAny<User>());
             Assert.IsNotNull(user);
         }
 
         [TestMethod]
-        public void Update_ThenAUserIsreturned()
+        public void UpdateUser_ThenAUserIsreturned()
         {
-            ConfigureUserServiceGet();
-            var user = _userService.GetByIDGitHub(githubId);
+            ConfigureUserServiceUpdate();
+            var user = _userService.Update(It.IsAny<User>());
             Assert.IsNotNull(user);
         }
 
-        [TestMethod]
-        public void Delete_ThenAUserIsreturned()
-        {
-            ConfigureUserServiceGet();
-            var user = _userService.GetByIDGitHub(githubId);
-            Assert.IsNotNull(user);
-        }
+        //[TestMethod]
+        //public void DeleteUser_ThenCheckIfItStillExists()
+        //{
+        //    ConfigureUserServiceDelete();
+        //    _userService.Delete(It.IsAny<User>());
+        //    Assert.IsNotNull(user);
+        //}
 
         public void ConfigureUserServiceGet()
         {
             _userRepo.Setup(x => x.Get(It.IsAny<Expression<Func<User, bool>>>())).Returns(PrepareUser());
+        }
+
+        public void ConfigureUserServiceGetByIdGitHub()
+        {
+            _userRepo.Setup(x => x.Get(It.IsAny<Expression<Func<User, bool>>>())).Returns(new User());
         }
 
         public void ConfigureUserServiceAdd()
@@ -87,12 +101,13 @@ namespace SpeedRun.Services.Tests.Services
         {
             return new User()
             {
+                Id = Guid.NewGuid(),
                 FirstName = "Victorien",
                 LastName = "Laloutre",
                 ZipCode = "67000",
                 Address = "Rue de la Loutre",
                 City = "Strasbourg",
-                IDGitHub = "UtilisateurGitHub",
+                IDGitHub = "totoAfrica",
                 AvatarUrl = "http://urldelavatar.fr"
             };
         }
