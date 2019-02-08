@@ -39,7 +39,13 @@ namespace SpeedRun.Services.Tests.Services
         {
             return new User()
             {
-                // complter cette merde
+                FirstName = "Victorien",
+                LastName = "Laloutre",
+                ZipCode = "67000",
+                Address = "Rue de la Loutre",
+                City = "Strasbourg",
+                IDGitHub = "UtilisateurGitHub",
+                AvatarUrl = "http://urldelavatar.fr"
             };
         }
         
